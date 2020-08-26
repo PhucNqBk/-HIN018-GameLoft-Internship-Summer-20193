@@ -1,0 +1,4 @@
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  Application.cpp
+d:\git\[hin018]-gameproject\trainingframework\src\application.cpp(94): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+  TrainingFramework.vcxproj -> D:\Git\[HIN018]-GameProject\\BIN-Nvidia\TrainingFramework.exe

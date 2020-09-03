@@ -110,7 +110,6 @@ void Sprite2D::Draw()
 		glUniformMatrix4fv(iTempShaderVaribleGLID, 1, GL_FALSE, matrixWVP.m[0]);
 
 
-
 	glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndiceObject(), GL_UNSIGNED_INT, 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -118,6 +117,8 @@ void Sprite2D::Draw()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 }
+
+
 
 void Sprite2D::Update(GLfloat deltatime)
 {

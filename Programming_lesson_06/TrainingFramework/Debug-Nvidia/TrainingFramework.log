@@ -1,31 +1,12 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  TrainingFramework.cpp
-  GSPlay.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsplay.cpp(36): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsplay.cpp(42): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1801): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
-          with
-          [
-              _Ty=Text
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
-          with
-          [
-              _Ty=Text
-          ]
-  d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsplay.cpp(48): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
   GSMenu.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(27): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(33): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(43): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(53): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(64): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(76): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(28): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(34): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(44): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(54): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(65): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(75): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(82): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
 c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1801): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
@@ -41,69 +22,7 @@ c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.
           [
               _Ty=Text
           ]
-  d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(75): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[17],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[17],TEXT_COLOR &&,double &&)' being compiled
-  GSIntro.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gsintro.cpp(27): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-  GSCredit.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gscredit.cpp(23): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gscredit.cpp(29): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1801): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
-          with
-          [
-              _Ty=double
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[27],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[27],TEXT_COLOR &&,double &&)' being compiled
-          with
-          [
-              _Ty=Text
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[27],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[27],TEXT_COLOR &&,double &&)' being compiled
-          with
-          [
-              _Ty=Text
-          ]
-  d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gamestates\gscredit.cpp(37): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[27],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[27],TEXT_COLOR &&,double &&)' being compiled
-  GameStateMachine.cpp
-  GameStatebase.cpp
-  Texture.cpp
-  Text.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\text.cpp(24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\text.cpp(25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\text.cpp(171): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\text.cpp(172): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\text.cpp(182): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\text.cpp(183): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Shaders.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\shaders.cpp(21): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\shaders.cpp(21): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\shaders.cpp(25): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\shaders.cpp(32): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\shaders.cpp(44): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\shaders.cpp(44): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 2 has type 'const std::string'
-  Models.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(10): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(13): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'const std::string'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(25): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(35): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(2263): note: see declaration of 'sscanf'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(40): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(2263): note: see declaration of 'sscanf'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(62): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(2263): note: see declaration of 'sscanf'
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\models.cpp(68): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(2263): note: see declaration of 'sscanf'
-  Sprite3D.cpp
-  Camera.cpp
-  Sprite2D.cpp
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\sprite2d.cpp(143): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\sprite2d.cpp(144): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\sprite2d.cpp(154): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\git\-hin018-gameloft-internship-summer-20193\programming_lesson_06\trainingframework\src\gameobject\sprite2d.cpp(155): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Player.cpp
-  GameButton.cpp
-  Font.cpp
-  ResourceManagers.cpp
-  Application.cpp
+  c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(81): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[17],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[17],TEXT_COLOR &&,double &&)' being compiled
+  Animation.cpp
   Generating Code...
-Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
-  TrainingFramework.vcxproj -> D:\Git\-HIN018-GameLoft-Internship-Summer-20193\Programming_lesson_06\\BIN-Nvidia\TrainingFramework.exe
+  TrainingFramework.vcxproj -> C:\Users\Fourier_Sp\Downloads\Compressed\Programming_lesson_06\\BIN-Nvidia\TrainingFramework.exe

@@ -29,7 +29,7 @@ void GSCredit::Init()
 	m_Button->Set2DPosition(screenWidth -100, 30);
 	m_Button->SetSize(200, 50);
 	m_Button->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Menu);
+		GameStateMachine::GetInstance()->PopState();
 	});
 
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");

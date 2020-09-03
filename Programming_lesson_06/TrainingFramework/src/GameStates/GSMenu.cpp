@@ -19,7 +19,8 @@ void GSMenu::Init()
 {
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D");
 	auto model1 = ResourceManagers::GetInstance()->GetModel("Sprite2Dv1");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("background");
+	auto shaderX = ResourceManagers::GetInstance()->GetShader("AnimationShader");
 
 	//BackGround
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
@@ -68,6 +69,11 @@ void GSMenu::Init()
 		});
 	m_listButton.push_back(button);
 
+	
+	texture = ResourceManagers::GetInstance()->GetTexture("character_walk");
+	testAnim = std::make_shared<Animation>(model1, shaderX, texture,4, 4, 0, 0.1f);
+	testAnim->Set2DPosition(screenWidth / 2, 600);
+	testAnim->SetSize(64, 128);
 
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
@@ -118,6 +124,7 @@ void GSMenu::Update(float deltaTime)
 	{
 		it->Update(deltaTime);
 	}
+	testAnim->Update(deltaTime);
 }
 
 void GSMenu::Draw()
@@ -128,4 +135,5 @@ void GSMenu::Draw()
 		it->Draw();
 	}
 	m_Text_gameName->Draw();
+	testAnim->Draw();
 }

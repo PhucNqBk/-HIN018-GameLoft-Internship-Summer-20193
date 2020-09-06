@@ -2,6 +2,8 @@
 #include "gamestatebase.h"
 #include "GameButton.h"
 #include "Animation.h"
+#include "GameMaps/TileLayer.h"
+#include "GameMaps/Dungeon.h"
 class GSMenu :
 	public GameStateBase
 {
@@ -26,5 +28,9 @@ private:
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 	std::shared_ptr<Text>  m_Text_gameName;
 	std::shared_ptr<Animation> testAnim;
+	std::shared_ptr<TileLayer> testTile;
+	std::shared_ptr<Dungeon> testDungeon;
+
+
 };
 

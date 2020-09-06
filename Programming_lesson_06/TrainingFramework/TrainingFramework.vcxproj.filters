@@ -16,6 +16,9 @@
     <Filter Include="TrainingFramework\src\GameStates">
       <UniqueIdentifier>{2a875364-1a2b-4ea6-a6fe-716988208916}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\GameMap">
+      <UniqueIdentifier>{d66ff500-e259-40b3-ba54-a5af07264e25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -80,6 +83,18 @@
     </ClCompile>
     <ClCompile Include="src\GameObject\Animation.cpp">
       <Filter>TrainingFramework\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMaps\Tile.cpp">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMaps\TileLayer.cpp">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMaps\Dungeon.cpp">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameMaps\Door.cpp">
+      <Filter>TrainingFramework\src\GameMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +166,21 @@
     </ClInclude>
     <ClInclude Include="src\GameObject\Animation.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Constant.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMaps\Tile.h">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMaps\TileLayer.h">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMaps\Dungeon.h">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMaps\Door.h">
+      <Filter>TrainingFramework\src\GameMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

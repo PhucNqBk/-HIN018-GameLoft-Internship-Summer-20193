@@ -118,7 +118,7 @@ std::shared_ptr<Shaders> ResourceManagers::GetShader(const std::string& name)
 	return shaders;
 }
 
-std::shared_ptr<Texture> ResourceManagers::GetTexture(const std::string& name)
+std::shared_ptr<Texture> ResourceManagers::GetTexture(const std::string& name, GLuint filterMode)
 {
 	auto it = m_MapTexture.find(name);
 	if (it != m_MapTexture.end())
@@ -127,7 +127,7 @@ std::shared_ptr<Texture> ResourceManagers::GetTexture(const std::string& name)
 	}
 	std::shared_ptr<Texture> texture = std::make_shared<Texture>();
 	std::string file = m_TexturePath + name + ".tga";
-	texture->Init(file.c_str(), GL_CLAMP_TO_EDGE, GL_LINEAR_MIPMAP_LINEAR);
+	texture->Init(file.c_str(), GL_CLAMP_TO_EDGE, filterMode);
 	m_MapTexture.insert(std::pair<std::string, std::shared_ptr<Texture>>(name, texture));
 	return texture;
 }

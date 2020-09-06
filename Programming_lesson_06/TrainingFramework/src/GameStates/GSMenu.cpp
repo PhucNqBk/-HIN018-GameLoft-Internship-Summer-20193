@@ -1,5 +1,4 @@
 #include "GSMenu.h"
-
 extern int screenWidth; //need get on Graphic engine
 extern int screenHeight; //need get on Graphic engine
 
@@ -21,7 +20,6 @@ void GSMenu::Init()
 	auto model1 = ResourceManagers::GetInstance()->GetModel("Sprite2Dv1");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("background");
 	auto shaderX = ResourceManagers::GetInstance()->GetShader("AnimationShader");
-
 	//BackGround
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	m_BackGround = std::make_shared<Sprite2D>(model, shader, texture);
@@ -68,12 +66,30 @@ void GSMenu::Init()
 		exit(0);
 		});
 	m_listButton.push_back(button);
-
 	
-	texture = ResourceManagers::GetInstance()->GetTexture("character_walk");
-	testAnim = std::make_shared<Animation>(model1, shaderX, texture,4, 4, 0, 0.1f);
+	texture = ResourceManagers::GetInstance()->GetTexture("character_walk", GL_NEAREST);
+	testAnim = std::make_shared<Animation>(model1, shaderX, texture,4, 4, 1, 0.1f);
 	testAnim->Set2DPosition(screenWidth / 2, 600);
-	testAnim->SetSize(64, 128);
+	testAnim->SetSize(48, 96);
+
+	texture = ResourceManagers::GetInstance()->GetTexture("tilesheet_numbered", GL_NEAREST);
+	testTile = std::make_shared<TileLayer>(model1, shaderX, texture, 0, 0);
+	testTile->SetPosition(screenWidth / 2, screenHeight/2);
+	Room room;
+	room.m_RowCount = 12;
+	room.m_ColCount = 12;
+	room.m_DungRow = 1;
+	room.m_DungCol =2;
+	room.Door_Left = true;
+	room.Door_Right = false;
+	room.Door_Up = true;
+	room.Door_Down = false;
+	room.isCleared = false;
+	//testTile->InitRoom(model1, shaderX, texture, room);
+
+	testDungeon = std::make_shared<Dungeon>(model1, shaderX, texture);
+	
+//	testDungeon = std::make_shared<Dungeon>(model1, shaderX, texture, 1280/2, 720/2);
 
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
@@ -105,7 +121,7 @@ void GSMenu::HandleEvents()
 
 void GSMenu::HandleKeyEvents(int key, bool bIsPressed)
 {
-
+	testDungeon->HandleKeyEvents(key, bIsPressed);
 }
 
 void GSMenu::HandleTouchEvents(int x, int y, bool bIsPressed)
@@ -125,6 +141,8 @@ void GSMenu::Update(float deltaTime)
 		it->Update(deltaTime);
 	}
 	testAnim->Update(deltaTime);
+	//testTile->Update(deltaTime);
+	testDungeon->Update(deltaTime);
 }
 
 void GSMenu::Draw()
@@ -135,5 +153,7 @@ void GSMenu::Draw()
 		it->Draw();
 	}
 	m_Text_gameName->Draw();
-	testAnim->Draw();
+	//testAnim->Draw();
+	//testTile->Draw();
+	testDungeon->Draw();
 }

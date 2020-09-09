@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "GameMaps/TileLayer.h"
 #include "GameMaps/Dungeon.h"
+#include "ObjectDefs.h"
 class GSMenu :
 	public GameStateBase
 {

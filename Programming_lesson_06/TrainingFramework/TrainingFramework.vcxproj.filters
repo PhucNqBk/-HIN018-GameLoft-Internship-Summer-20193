@@ -19,6 +19,15 @@
     <Filter Include="TrainingFramework\src\GameMap">
       <UniqueIdentifier>{d66ff500-e259-40b3-ba54-a5af07264e25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\EntityStates">
+      <UniqueIdentifier>{4e0dd938-9286-4faa-ad6b-725bbab0074f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TrainingFramework\src\EntityStates\PlayerStates">
+      <UniqueIdentifier>{b41aa65e-bde4-48fb-9493-cdcc2b78c135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TrainingFramework\src\tinyxml">
+      <UniqueIdentifier>{ada2e4ee-6c3e-408a-9bb3-9c612b19fab4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -81,9 +90,6 @@
     <ClCompile Include="src\GameStates\GSOption.cpp">
       <Filter>TrainingFramework\src\GameStates</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameObject\Animation.cpp">
-      <Filter>TrainingFramework\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\GameMaps\Tile.cpp">
       <Filter>TrainingFramework\src\GameMap</Filter>
     </ClCompile>
@@ -95,6 +101,48 @@
     </ClCompile>
     <ClCompile Include="src\GameMaps\Door.cpp">
       <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Entity.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Animation.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\EntityStateBase.cpp">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\EntityStateMachine.cpp">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\ESIdle.cpp">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\ESWalk.cpp">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\ESAttack.cpp">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\PlayerStates\PSIdle.cpp">
+      <Filter>TrainingFramework\src\EntityStates\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\PlayerStates\PSWalk.cpp">
+      <Filter>TrainingFramework\src\EntityStates\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityStates\PlayerStates\PSSword.cpp">
+      <Filter>TrainingFramework\src\EntityStates\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml\tinystr.cpp">
+      <Filter>TrainingFramework\src\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml\tinyxml.cpp">
+      <Filter>TrainingFramework\src\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml\tinyxmlerror.cpp">
+      <Filter>TrainingFramework\src\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tinyxml\tinyxmlparser.cpp">
+      <Filter>TrainingFramework\src\tinyxml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +229,42 @@
     </ClInclude>
     <ClInclude Include="src\GameMaps\Door.h">
       <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\ObjectDefs.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Entity.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\EntityStateBase.h">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\EntityStateMachine.h">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\ESIdle.h">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\ESWalk.h">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\ESAttack.h">
+      <Filter>TrainingFramework\src\EntityStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\PlayerStates\PSIdle.h">
+      <Filter>TrainingFramework\src\EntityStates\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\PlayerStates\PSWalk.h">
+      <Filter>TrainingFramework\src\EntityStates\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EntityStates\PlayerStates\PSSword.h">
+      <Filter>TrainingFramework\src\EntityStates\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tinyxml\tinystr.h">
+      <Filter>TrainingFramework\src\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tinyxml\tinyxml.h">
+      <Filter>TrainingFramework\src\tinyxml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

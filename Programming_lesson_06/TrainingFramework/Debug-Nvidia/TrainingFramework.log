@@ -1,16 +1,20 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Dungeon.cpp
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(24): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(51): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(120): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(204): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(203): warning C4101: 'y1': unreferenced local variable
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(203): warning C4101: 'x1': unreferenced local variable
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(221): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(256): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(257): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(282): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(347): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(357): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(364): warning C4018: '<': signed/unsigned mismatch
+  GSPlay.cpp
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsplay.cpp(36): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1801): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+  c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsplay.cpp(53): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[10],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[10],TEXT_COLOR &&,double &&)' being compiled
   TrainingFramework.vcxproj -> C:\Users\Fourier_Sp\Downloads\Compressed\Programming_lesson_06\\BIN-Nvidia\TrainingFramework.exe

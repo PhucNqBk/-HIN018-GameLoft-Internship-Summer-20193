@@ -3,9 +3,10 @@
 #include "Texture.h"
 #include "Models.h"
 
-Animation::Animation(std::shared_ptr<Models> model, std::shared_ptr<Shaders> shader, std::shared_ptr<Texture> texture, int row, int col, int rcount,float frtime) :
-	Sprite2D(model, shader, texture), m_rowCount(row), m_colCount(col), m_frameTime(frtime), m_currentCol(0), m_currentRow(rcount), m_currentTime(0.0)
+Animation::Animation(std::shared_ptr<Models> model, std::shared_ptr<Shaders> shader, std::shared_ptr<Texture> texture, int row, int col, float frtime) :
+	Sprite2D(model, shader, texture), m_RowCount(row), m_ColCount(col), m_CurrentFrame(0), m_FrameTime(frtime), m_CurrentTime(0.0), m_IsLoop(true)
 {
+	SetSize(48, 96);
 }
 Animation::~Animation()
 {
@@ -62,22 +63,22 @@ void Animation::Draw()
 	iTempShaderVaribleGLID = -1;
 	iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_row");
 	if (iTempShaderVaribleGLID != -1)
-		glUniform1f(iTempShaderVaribleGLID, (float)m_rowCount);
+		glUniform1f(iTempShaderVaribleGLID, (float)m_RowCount);
 
 	iTempShaderVaribleGLID = -1;
 	iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_col");
 	if (iTempShaderVaribleGLID != -1)
-		glUniform1f(iTempShaderVaribleGLID, (float)m_colCount);
+		glUniform1f(iTempShaderVaribleGLID, (float)m_ColCount);
 
 	iTempShaderVaribleGLID = -1;
 	iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_curr_row");
 	if (iTempShaderVaribleGLID != -1)
-		glUniform1f(iTempShaderVaribleGLID, (float)m_currentRow);
+		glUniform1f(iTempShaderVaribleGLID, (float)(m_IDs[m_CurrentFrame] / m_ColCount));
 
 	iTempShaderVaribleGLID = -1;
 	iTempShaderVaribleGLID = m_pShader->GetUniformLocation((char*)"u_curr_col");
 	if (iTempShaderVaribleGLID != -1)
-		glUniform1f(iTempShaderVaribleGLID, (float)m_currentCol);
+		glUniform1f(iTempShaderVaribleGLID, (float)(m_IDs[m_CurrentFrame] % m_ColCount));
 
 	glDrawElements(GL_TRIANGLES, m_pModel->GetNumIndiceObject(), GL_UNSIGNED_INT, 0);
 
@@ -87,12 +88,41 @@ void Animation::Draw()
 }
 void Animation::Update(GLfloat deltatime)
 {
-	m_currentTime += deltatime;
-	if (m_currentTime > m_frameTime) {
-		m_currentCol++;
-		if (m_currentCol >= m_colCount) {
-			m_currentCol = 0;
+	m_CurrentTime += deltatime;
+	if (m_CurrentTime > m_FrameTime) {
+		m_CurrentFrame++;
+		if (m_CurrentFrame >= m_FrameCount ) {
+			m_CurrentFrame = 0;
 		}
-		m_currentTime -= m_frameTime;
+		
+		m_CurrentTime -= m_FrameTime;
 	}
+}
+void Animation::SetIDs(const int a[], int count)
+{
+	m_IDs.clear();
+	std::vector<int>().swap(m_IDs);
+	for (int i = 0; i < count; ++i) {
+		m_IDs.push_back(a[i]);
+	}
+	m_FrameCount = count;
+}
+void Animation::SetIDs( std::vector<int> a)
+{
+	m_IDs.clear();
+	std::vector<int>().swap(m_IDs);
+	m_IDs = a;
+	m_FrameCount = a.size();
+}
+void Animation::SetIsLoop(bool loop)
+{
+	m_IsLoop = loop;
+}
+int	Animation::GetCurrentFrame()
+{
+	return m_CurrentFrame;
+}
+int	Animation::GetFrameCount()
+{
+	return m_FrameCount;
 }

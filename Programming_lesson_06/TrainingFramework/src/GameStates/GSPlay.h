@@ -1,5 +1,9 @@
 #pragma once
 #include "gamestatebase.h"
+#include "GameMaps/TileLayer.h"
+#include "GameMaps/Dungeon.h"
+#include "ObjectDefs.h"
+
 
 class Sprite2D;
 class Player;
@@ -34,6 +38,6 @@ private:
 	std::shared_ptr<Sprite2D> m_BackGround;
 	std::shared_ptr<Text>  m_score;
 	std::shared_ptr<Player> m_player;
-
+	std::shared_ptr<Dungeon> testDungeon;
 };
 

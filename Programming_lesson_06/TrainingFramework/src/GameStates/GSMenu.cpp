@@ -68,7 +68,8 @@ void GSMenu::Init()
 	m_listButton.push_back(button);
 	
 	texture = ResourceManagers::GetInstance()->GetTexture("character_walk", GL_NEAREST);
-	testAnim = std::make_shared<Animation>(model1, shaderX, texture,4, 4, 1, 0.1f);
+	testAnim = std::make_shared<Animation>(model1, shaderX, texture,4, 4, 0.1f);
+	testAnim->SetIDs(PLAYER_LEFT, 4);
 	testAnim->Set2DPosition(screenWidth / 2, 600);
 	testAnim->SetSize(48, 96);
 
@@ -90,7 +91,6 @@ void GSMenu::Init()
 	testDungeon = std::make_shared<Dungeon>(model1, shaderX, texture);
 	
 //	testDungeon = std::make_shared<Dungeon>(model1, shaderX, texture, 1280/2, 720/2);
-
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
@@ -121,7 +121,7 @@ void GSMenu::HandleEvents()
 
 void GSMenu::HandleKeyEvents(int key, bool bIsPressed)
 {
-	testDungeon->HandleKeyEvents(key, bIsPressed);
+	//testDungeon->HandleKeyEvents(key, bIsPressed);
 }
 
 void GSMenu::HandleTouchEvents(int x, int y, bool bIsPressed)
@@ -153,7 +153,7 @@ void GSMenu::Draw()
 		it->Draw();
 	}
 	m_Text_gameName->Draw();
-	//testAnim->Draw();
+	testAnim->Draw();
 	//testTile->Draw();
-	testDungeon->Draw();
+	//testDungeon->Draw();
 }

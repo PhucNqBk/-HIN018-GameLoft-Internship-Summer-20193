@@ -8,9 +8,9 @@
 
 #define TILE_SIZE 48
 
-#define PLAYER_WALK_SPEED  60;
+const float PLAYER_WALK_SPEED =60;
 
-#define MAP_MAX_WIDTH 9
+#define MAP_MAX_WIDTH 12
 #define MAP_MAX_HEIGHT 6
 #define MAP_MIN_WIDTH 4
 #define MAP_MIN_HEIGHT 4
@@ -48,4 +48,16 @@ struct Room {
 	bool Door_Left = false, Door_Right = false, Door_Up = false, Door_Down = false;
 	bool isCleared = false;
 	int m_RoomType = 1;
+};
+
+#define MFORWARD 1
+#define MBACKWARD 2
+#define MUPWARD 4
+#define MDOWNWARD 8
+#define P_SWORD 16
+enum Direction {
+	DIR_DOWN = 0,
+	DIR_RIGHT,
+	DIR_UP,
+	DIR_LEFT
 };

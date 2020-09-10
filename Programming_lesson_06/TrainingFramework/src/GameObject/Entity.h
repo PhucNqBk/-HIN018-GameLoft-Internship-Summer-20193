@@ -7,7 +7,7 @@
 class Entity
 {
 public:
-	Entity();
+	Entity(int eType = 0);
 	~Entity();
 	
 	void		Init();
@@ -25,7 +25,10 @@ public:
 	void		GetHealth();
 	void		ChangeState(EntityStateType stt);
 	void		ChangeAnimation(std::string id);
-	
+	void		SetCollider(float x, float y, float w, float h);
+	bool		MapCollision(float posX, float posY, float col, float row);
+	bool		Collision(float posX, float posY, Collider2D other);
+
 protected:
 	int			m_CheckKeyPress;
 	Direction	m_Direction;
@@ -35,7 +38,9 @@ protected:
 	float		m_InvunerableTimer;
 	bool		Is_Dead;
 	Vector2		m_Position;
+
 	std::map<std::string, std::shared_ptr<Animation> > m_Animations;
 	std::shared_ptr<Animation> m_CurrentAnimation;
 	std::shared_ptr<EntityStateMachine> m_StateMachine;
+	Collider2D m_Collider;
 };

@@ -1,7 +1,10 @@
 #include "Dungeon.h"
 #include <cmath>
+#include "tinyxml/tinyxml.h"
+#include "ResourceManagers.h"
 Dungeon::Dungeon()
 {
+	ParseSprite("../Data/Asset/maps.mml");
 	for (int i = 0; i < DUNGEON_HEIGHT; i++)
 	{
 		for (int j = 0; j < DUNGEON_WIDTH; j++)
@@ -10,21 +13,51 @@ Dungeon::Dungeon()
 		}
 	}
 	CreateRooms();
-	for (int i = 0; i < DUNGEON_HEIGHT; i++)
-	{
-		for (int j = 0; j < DUNGEON_WIDTH; j++)
-		{
-			if (m_Dungeon[i][j] > 0) {
-		//		std::cout <<i << " "<<j<<". ";
-			}
-			
-		}
-	//	std::cout << std::endl;
-	}
 	for (int i = 0; i < TakenList.size(); i++)
 	{
-	//	std::cout <<TakenList[i].y + gridSizeY<<" "<<TakenList[i].x + gridSizeX<<" ";
+		Room room;
+		room.m_RowCount = 2 * (MAP_MIN_HEIGHT + std::rand() % (MAP_MAX_HEIGHT - MAP_MIN_HEIGHT + 1));
+		room.m_ColCount = 2 * (MAP_MIN_WIDTH + std::rand() % (MAP_MAX_WIDTH - MAP_MIN_WIDTH + 1));
+		int x = gridSizeX + (int)TakenList[i].x;
+		int y = gridSizeY + (int)TakenList[i].y;
+		room.m_DungCol = x; room.m_DungRow = y;
+		if (x <= ROOM_WIDTH - 2)
+		{
+			if (m_Dungeon[y][x + 1] == 1)
+				room.Door_Right = true;
+		}
+		if (x - 1 >= 0)
+		{
+			if (m_Dungeon[y][x - 1] == 1)
+				room.Door_Left = true;
+		}
+		if (y <= ROOM_HEIGHT - 2)
+		{
+			if (m_Dungeon[y + 1][x] == 1)
+				room.Door_Down = true;
+		}
+		if (y - 1 >= 0)
+		{
+			if (m_Dungeon[y - 1][x] == 1)
+				room.Door_Up = true;
+		}
+		room.isCleared = true;
+		m_DungeonRooms.push_back(room);
+		//std::cout << m_DungeonRooms.size() << std::endl;;
 	}
+
+	m_Player = std::make_shared<Player>();
+	m_Player->CreatAnimation("../Data/Asset/animations.aml");
+	m_Player->SetEntity(m_Player);
+	m_Player->ChangeState(EntityStateType::IDLE);
+
+	m_DungeonRooms[6].m_ColCount = 20;
+	auto rSpr = FindTileRoom(m_DungeonRooms[1].m_ColCount, m_DungeonRooms[1].m_RowCount);
+	m_CurrentTileRoom = std::make_shared<TileRoom>();
+	m_CurrentTileRoom->InitRoom(m_DungeonRooms[1], rSpr);
+	m_CurrentTileRoom->SetPlayer(m_Player);
+	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[0]);
+	m_CurrentTileRoom->SetPosition(1280 / 2, 720 / 2);
 		
 }
 Dungeon::Dungeon(std::shared_ptr<Models> model, std::shared_ptr<Shaders> shader, std::shared_ptr<Texture> texture):
@@ -38,16 +71,6 @@ Dungeon::Dungeon(std::shared_ptr<Models> model, std::shared_ptr<Shaders> shader,
 		}
 	}
 	CreateRooms();
-	for (int i = 0; i < DUNGEON_HEIGHT; i++)
-	{
-		for (int j = 0; j < DUNGEON_WIDTH; j++)
-		{
-			
-						std::cout << m_Dungeon[i][j] <<". ";
-
-		}
-			std::cout << std::endl;
-	}
 	for (int i = 0; i < TakenList.size(); i++)
 	{
 		Room room;
@@ -149,46 +172,76 @@ void Dungeon::Init()
 		//std::cout << m_DungeonRooms.size() << std::endl;;
 	}
 	m_DungeonRooms[6].m_ColCount = 20;
-	m_CurrentRoom->InitRoom(m_pModel, m_pShader, m_pTexture, m_DungeonRooms[1]);
-	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[0]);
-	m_CurrentRoom->SetPosition(1280 / 2, 720 / 2);
+	auto rSpr = FindTileRoom(m_DungeonRooms[1].m_ColCount, m_DungeonRooms[1].m_RowCount);
+	m_CurrentTileRoom->InitRoom(m_DungeonRooms[1], rSpr);
+	m_CurrentTileRoom->SetPosition(1280 / 2, 720 / 2);
 }
 void Dungeon::Draw()
 {
-	m_CurrentRoom->Draw();
+	m_CurrentTileRoom->Draw();
 }
 void Dungeon::Update(GLfloat deltatime)
 {
 	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[]);
+	m_CurrentTileRoom->Update(deltatime);
+	std::vector<std::shared_ptr<Door> > Doorway = m_CurrentTileRoom->GetDoor();
+	for (auto it : Doorway)
+	{
+		if (it->GetIsEnable() && it->GetIsOpen()) {
+			Vector2 pos = it->GetPosition();
+				if (m_Player->Collision(pos.x, pos.y, it->GetCollider()))
+				{
+					//std::cout << " Collider with :" << it->GetDoorDirection() << std::endl;
+					ChangeRoom(it->GetDoorDirection());
+
+				}
+		}
+		
+	}
 }
 void Dungeon::HandleKeyEvents(int key, bool bIsPressed)
 {
-	int row = m_CurrentRoom->GetDungRow();
-	int col = m_CurrentRoom->GetDungCol();
+	/*
+	int row = m_CurrentTileRoom->GetDungRow();
+	int col = m_CurrentTileRoom->GetDungCol();
 	std::cout << row << " " << col << std::endl;
 	int keyX = -1;
+	std::shared_ptr<Sprite2D> sprite;
 	if (bIsPressed) {
 		switch (key)
 		{
 		case VK_UP:
 			keyX = FindRoom(row - 1, col);
-			if(keyX != -1)
-				m_CurrentRoom->InitRoom(m_pModel, m_pShader, m_pTexture, m_DungeonRooms[keyX]);
+			if (keyX != -1)
+			{
+				sprite = FindTileRoom(m_DungeonRooms[keyX].m_ColCount, m_DungeonRooms[keyX].m_RowCount);
+				m_CurrentTileRoom->InitRoom(m_DungeonRooms[keyX], sprite);
+			}
+				
 			break;
 		case VK_DOWN:
 			keyX = FindRoom(row +1, col);
 			if (keyX != -1)
-				m_CurrentRoom->InitRoom(m_pModel, m_pShader, m_pTexture, m_DungeonRooms[keyX]);
+			{
+				sprite = FindTileRoom(m_DungeonRooms[keyX].m_ColCount, m_DungeonRooms[keyX].m_RowCount);
+				m_CurrentTileRoom->InitRoom(m_DungeonRooms[keyX], sprite);
+			}
 			break;
 		case VK_LEFT:
 		    keyX = FindRoom(row, col -1);
 			if (keyX != -1)
-				m_CurrentRoom->InitRoom(m_pModel, m_pShader, m_pTexture, m_DungeonRooms[keyX]);
+			{
+				sprite = FindTileRoom(m_DungeonRooms[keyX].m_ColCount, m_DungeonRooms[keyX].m_RowCount);
+				m_CurrentTileRoom->InitRoom(m_DungeonRooms[keyX], sprite);
+			}
 			break;
 		case VK_RIGHT:
 			keyX = FindRoom(row, col + 1);
 			if (keyX != -1)
-				m_CurrentRoom->InitRoom(m_pModel, m_pShader, m_pTexture, m_DungeonRooms[keyX]);
+			{
+				sprite = FindTileRoom(m_DungeonRooms[keyX].m_ColCount, m_DungeonRooms[keyX].m_RowCount);
+				m_CurrentTileRoom->InitRoom(m_DungeonRooms[keyX], sprite);
+			}
 			break;
 		case 'C':
 			Init();
@@ -196,6 +249,8 @@ void Dungeon::HandleKeyEvents(int key, bool bIsPressed)
 			break;
 		}
 	}
+	*/
+	m_Player->HandleKeyEvents(key, bIsPressed);
 }
 void Dungeon::SetRoomsPosition(float x, float y)
 {
@@ -366,4 +421,165 @@ int Dungeon::FindRoom(int d_row, int d_col)
 			return i;
 	}
 	return -1;
+}
+
+void Dungeon::ParseSprite(std::string filename)
+{
+	
+		std::map<std::pair<int, int>, std::shared_ptr<Sprite2D>> m_Texts;
+		TiXmlDocument xml;
+		xml.LoadFile(filename);
+
+		if (xml.Error()) {
+			std::cerr << "Failed to load: " << filename << std::endl;
+			return;
+		}
+	
+	TiXmlElement* root = xml.RootElement();
+	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
+	{
+		if (e->Value() == std::string("sequence"))
+		{
+			std::string modelname = e->Attribute("model");
+			std::string shadername = e->Attribute("shader");
+			for (TiXmlElement* fr = e->FirstChildElement(); fr != nullptr; fr = fr->NextSiblingElement())
+			{
+				if (fr->Value() == std::string("map"))
+				{
+					int w, h;
+					fr->Attribute("width", &w);
+					fr->Attribute("height", &h);
+
+					std::string txtfile = fr->Attribute("texture");
+
+					auto model = ResourceManagers::GetInstance()->GetModel(modelname);
+					auto shader = ResourceManagers::GetInstance()->GetShader(shadername);
+					auto texture = ResourceManagers::GetInstance()->GetTexture(txtfile, GL_NEAREST);
+					
+					auto sprite = std::make_shared<Sprite2D>(model, shader, texture);
+					sprite->SetSize(TILE_SIZE*w, TILE_SIZE*h);
+					std::pair<int, int> pos = std::make_pair(w, h);
+					m_Texts[pos] = sprite;
+					//std::cout << w << " " << h << " " << txtfile << std::endl;
+				}
+			}
+			
+		}
+	}
+	m_RoomSprites = m_Texts;
+
+}
+void Dungeon::ParseAnimation(std::string filename)
+{
+
+	std::map<std::string, std::shared_ptr<Animation>> m_Anims;
+	TiXmlDocument xml;
+	xml.LoadFile(filename);
+
+	if (xml.Error()) {
+		std::cerr << "Failed to load: " << filename << std::endl;
+		return;
+	}
+
+	TiXmlElement* root = xml.RootElement();
+	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
+	{
+		if (e->Value() == std::string("sequence"))
+		{
+			std::string modelname = e->Attribute("model");
+			std::string shadername = e->Attribute("shader");
+			std::string texturename = e->Attribute("texture");
+
+			int RowCount, ColCount, tile_w, tile_h;
+			e->Attribute("RowCount", &RowCount);
+			e->Attribute("FrameCount", &ColCount);
+			e->Attribute("width", &tile_w);
+			e->Attribute("height", &tile_h);
+
+			auto model = ResourceManagers::GetInstance()->GetModel(modelname);
+			auto texture = ResourceManagers::GetInstance()->GetTexture(texturename, GL_NEAREST);
+			auto shader = ResourceManagers::GetInstance()->GetShader(shadername);
+
+			for (TiXmlElement* fr = e->FirstChildElement(); fr != nullptr; fr = fr->NextSiblingElement())
+			{
+				if (fr->Value() == std::string("enemy"))
+				{
+					std::string animid = fr->Attribute("id");
+
+					for (TiXmlElement* er = e->FirstChildElement(); er != nullptr; er = er->NextSiblingElement())
+					{
+						if (er->Value() == std::string("frame"))
+						{
+							std::string id = er->Attribute("id");
+							int isLoop;
+							er->Attribute("loop", &isLoop);
+							int Count;
+							er->Attribute("count", &Count);
+
+							//std::cout << model << " " << shader << " " << texture << " " << id << "" << std::endl;
+							auto s = er->GetText();
+							std::string val;
+							std::istringstream iss(s);
+							int tId;
+							std::vector<int> tIds;
+							for (int i = 0; i < Count; i++)
+							{
+								std::getline(iss, val, ',');
+								std::stringstream conv(val);
+								conv >> tId;
+								tIds.push_back(tId);
+							}
+							std::shared_ptr<Animation> anim = std::make_shared<Animation>(model, shader, texture, RowCount, ColCount, 0.1f);
+							anim->SetIDs(tIds);
+							anim->SetIsLoop(isLoop == 1);
+							anim->SetSize(tile_w, tile_h);
+							m_Anims[id] = anim;
+						}
+					}
+				}
+			}
+
+		}
+	}
+	m_EnemyAnimations = m_Anims;
+
+}
+std::shared_ptr<Sprite2D> Dungeon::FindTileRoom(int w, int h)
+{
+	auto val = std::make_pair(w, h);
+	return m_RoomSprites[val];
+}
+void Dungeon::ChangeRoom(DoorDirection dir)
+{
+	int row = m_CurrentTileRoom->GetDungRow();
+	int col = m_CurrentTileRoom->GetDungCol();
+	int keyX = -1;
+
+	std::shared_ptr<Sprite2D> sprite;
+	if (dir == DoorDirection::DOWN)
+	{
+		keyX = FindRoom(row + 1, col);
+		
+	}
+	else if (dir == DoorDirection::RIGHT)
+	{
+		keyX = FindRoom(row, col + 1);
+		
+	}
+	else if (dir == DoorDirection::UP)
+	{
+		keyX = FindRoom(row - 1, col);
+		
+	}
+	else
+	{
+		keyX = FindRoom(row, col - 1);
+		
+	}
+	if (keyX != -1)
+	{
+		sprite = FindTileRoom(m_DungeonRooms[keyX].m_ColCount, m_DungeonRooms[keyX].m_RowCount);
+		m_CurrentTileRoom->InitRoom(m_DungeonRooms[keyX], sprite);
+		m_CurrentTileRoom->SetPlayerPositionWithDoor(dir);
+	}
 }

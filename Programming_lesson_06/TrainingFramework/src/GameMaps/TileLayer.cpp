@@ -244,7 +244,7 @@ void TileLayer::GenerateTileLayer()
 }
 void TileLayer::AddDoor(bool isOpen, DoorDirection dir)
 {
-	auto tur = std::make_shared<Door>(isOpen, dir);
+	auto tur = std::make_shared<Door>(true, isOpen, dir);
 	m_Doors.push_back(tur);
 }
 void TileLayer::SetDoorTile(bool isOpen, DoorDirection dir)

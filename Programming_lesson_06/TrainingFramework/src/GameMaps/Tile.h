@@ -16,7 +16,7 @@ public:
 	void		Update(GLfloat deltatime) override;
 	
 
-private:
+protected:
 	int m_TileID;
 
 };

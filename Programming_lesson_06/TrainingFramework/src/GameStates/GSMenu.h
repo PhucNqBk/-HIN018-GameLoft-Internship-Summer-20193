@@ -5,6 +5,7 @@
 #include "GameMaps/TileLayer.h"
 #include "GameMaps/Dungeon.h"
 #include "ObjectDefs.h"
+#include "GameMaps/TileRoom.h"
 class GSMenu :
 	public GameStateBase
 {
@@ -31,7 +32,7 @@ private:
 	std::shared_ptr<Animation> testAnim;
 	std::shared_ptr<TileLayer> testTile;
 	std::shared_ptr<Dungeon> testDungeon;
-
+	std::shared_ptr<TileRoom> tRoom;
 
 };
 

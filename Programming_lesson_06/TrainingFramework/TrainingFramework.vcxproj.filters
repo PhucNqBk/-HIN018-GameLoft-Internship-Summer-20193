@@ -144,6 +144,15 @@
     <ClCompile Include="src\tinyxml\tinyxmlparser.cpp">
       <Filter>TrainingFramework\src\tinyxml</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameMaps\TileRoom.cpp">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Collider.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Enemy.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -265,6 +274,15 @@
     </ClInclude>
     <ClInclude Include="src\tinyxml\tinyxml.h">
       <Filter>TrainingFramework\src\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameMaps\TileRoom.h">
+      <Filter>TrainingFramework\src\GameMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Collider.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Enemy.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

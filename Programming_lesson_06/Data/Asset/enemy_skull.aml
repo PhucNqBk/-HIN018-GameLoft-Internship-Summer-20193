@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+	<sequence model = "Sprite2Dv1" shader = "AnimationShader" texture ="character_walk" RowCount = "4" FrameCount = "4" width = "48" height = "96">
+		<frame id ="player-idle-0" loop = "1" count = "1">2</frame>
+		<frame id ="player-idle-1" loop = "1" count = "1">6</frame>
+		<frame id ="player-idle-2" loop = "1" count = "1">10</frame>
+		<frame id ="player-idle-3" loop = "1" count = "1">14</frame>
+		<frame id ="player-walk-0" loop = "1" count = "4">0,1,2,3</frame>
+		<frame id ="player-walk-1" loop = "1" count = "4">4,5,6,7</frame>
+		<frame id ="player-walk-2" loop = "1" count = "4">8,9,10,11</frame>
+		<frame id ="player-walk-3" loop = "1" count = "4">12,13,14,15</frame>
+	</sequence>
+
+	<sequence model = "Sprite2Dv1" shader = "AnimationShader" texture ="character_swing_sword" RowCount = "4" FrameCount = "4" width = "96" height = "96">
+		<frame id ="player-sword-0" loop = "0" count = "4">0,1,2,3</frame>
+		<frame id ="player-sword-2" loop = "0" count = "4">4,5,6,7</frame>
+		<frame id ="player-sword-1" loop = "0" count = "4">8,9,10,11</frame>
+		<frame id ="player-sword-3" loop = "0" count = "4">12,13,14,15</frame>
+	</sequence>
+</animations>

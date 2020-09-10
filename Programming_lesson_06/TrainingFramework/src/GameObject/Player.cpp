@@ -4,6 +4,8 @@
 Player::Player()
 	:Entity()
 {
+	SetCollider(0, 0, 48, 48);
+	m_Health = 12;
 }
 Player::~Player()
 {
@@ -26,6 +28,9 @@ void Player::HandleKeyEvents(int key, bool bIsPressed)
 				case VK_RIGHT:
 					m_CheckKeyPress |= MFORWARD;
 					break;
+				case 'Z':
+					m_CheckKeyPress |= P_DASH;
+					break;
 				case 'C':
 					m_CheckKeyPress |= P_SWORD;
 				default:
@@ -45,6 +50,9 @@ void Player::HandleKeyEvents(int key, bool bIsPressed)
 				break;
 			case VK_RIGHT:
 				m_CheckKeyPress &= ~MFORWARD;
+				break;
+			case 'Z':
+				m_CheckKeyPress &= ~P_DASH;
 				break;
 			case 'C':
 				m_CheckKeyPress &= ~P_SWORD;
@@ -80,6 +88,15 @@ void Player::Update(GLfloat deltaTime) {
 	//	std::cout << "Shoot :" << presss << std::endl;
 	}
 	*/
+	m_LastSafePos = GetPosition();
 	m_CurrentAnimation->Update(deltaTime);
 	m_StateMachine->Update(deltaTime);
+}
+void Player::SetLastX()
+{
+	SetPosition(m_LastSafePos.x, m_Position.y);
+}
+void Player::SetLastY()
+{
+	SetPosition(m_Position.x, m_LastSafePos.y);
 }

@@ -12,5 +12,6 @@ public:
 
 	virtual void HandleEvents() override;
 	virtual void Update(float deltaTime) override;
-
+private:
+	float m_Speed;
 };

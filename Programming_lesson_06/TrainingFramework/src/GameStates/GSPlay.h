@@ -39,5 +39,6 @@ private:
 	std::shared_ptr<Text>  m_score;
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Dungeon> testDungeon;
+	std::shared_ptr<Sprite2D> dung;
 };
 

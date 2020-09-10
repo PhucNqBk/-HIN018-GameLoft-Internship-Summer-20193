@@ -8,9 +8,9 @@
 
 #define TILE_SIZE 48
 
-const float PLAYER_WALK_SPEED =60;
+const float PLAYER_WALK_SPEED =100;
 
-#define MAP_MAX_WIDTH 12
+#define MAP_MAX_WIDTH 10
 #define MAP_MAX_HEIGHT 6
 #define MAP_MIN_WIDTH 4
 #define MAP_MIN_HEIGHT 4
@@ -49,15 +49,29 @@ struct Room {
 	bool isCleared = false;
 	int m_RoomType = 1;
 };
-
+struct Collider2D {
+	float OffsetX;
+	float OffsetY;
+	float w;
+	float h;
+};
 #define MFORWARD 1
 #define MBACKWARD 2
 #define MUPWARD 4
 #define MDOWNWARD 8
 #define P_SWORD 16
+#define P_DASH 32
+
 enum Direction {
 	DIR_DOWN = 0,
 	DIR_RIGHT,
 	DIR_UP,
 	DIR_LEFT
 };
+
+#define DOOR_TILE_ROW 3
+#define DOOR_TILE_COL 4
+#define DOOR_DOWN 1
+#define DOOR_RIGHT 2
+#define DOOR_UP 3
+#define DOOR_LEFT 4

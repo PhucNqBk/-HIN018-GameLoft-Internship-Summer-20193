@@ -1,5 +1,4 @@
 #include "GSPlay.h"
-
 #include "Shaders.h"
 #include "Texture.h"
 #include "Models.h"
@@ -41,17 +40,22 @@ void GSPlay::Init()
 //	m_player = std::make_shared<Player>(model1, shader, texture);
 //	m_player->Set2DPosition(screenWidth / 2, screenHeight / 2);
 //	m_player->SetSize(16, 16);
-	m_player = std::make_shared<Player>();
-	m_player->CreatAnimation("../Data/Asset/animations.aml");
-	m_player->SetEntity(m_player);
-	m_player->ChangeState(EntityStateType::IDLE);
+	//m_player = std::make_shared<Player>();
+	//m_player->SetPosition(screenWidth / 2, screenHeight / 2);
+	//m_player->CreatAnimation("../Data/Asset/animations.aml");
+	//m_player->SetEntity(m_player);
+	//m_player->ChangeState(EntityStateType::IDLE);
+
 	texture = ResourceManagers::GetInstance()->GetTexture("tilesheet_numbered", GL_NEAREST);
-	testDungeon = std::make_shared<Dungeon>(model1, shaderX, texture);
+	testDungeon = std::make_shared<Dungeon>();
+
+	
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
 	m_score = std::make_shared< Text>(shader, font, "score: 10", TEXT_COLOR::RED, 1.0);
 	m_score->Set2DPosition(Vector2(5, 25));
+
 	
 }
 
@@ -79,7 +83,8 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(int key, bool bIsPressed)
 {
-	m_player->HandleKeyEvents(key, bIsPressed);
+	//m_player->HandleKeyEvents(key, bIsPressed);
+	testDungeon->HandleKeyEvents(key, bIsPressed);
 }
 
 void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
@@ -88,17 +93,20 @@ void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
 
 void GSPlay::Update(float deltaTime)
 {
-	m_player->Update(deltaTime);
+	//m_player->Update(deltaTime);
 	testDungeon->Update(deltaTime);
 }
 
 void GSPlay::Draw()
 {
+	//DWORD st = GetTickCount();
 	m_BackGround->Draw();
+//	st = GetTickCount();
 	testDungeon->Draw();
+//	std::cout << "Dung:" << GetTickCount() - st << std::endl;
 	m_score->Draw();
-	//testDungeon->Draw();
-	m_player->Draw();
+	//m_player->Draw();
+
 }
 
 void GSPlay::SetNewPostionForBullet()

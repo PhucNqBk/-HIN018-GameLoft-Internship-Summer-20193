@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+	<sequence model = "Sprite2Dv1" shader = "AnimationShader" texture ="entities" RowCount = "8" FrameCount = "12" width = "48" height = "48">
+		<enemy id ="slime">
+			<frame id ="idle-0" loop = "1" count = "1">49</frame>
+			<frame id ="idle-3" loop = "1" count = "1">61</frame>
+			<frame id ="idle-1" loop = "1" count = "1">73</frame>
+			<frame id ="idle-2" loop = "1" count = "1">85</frame>
+			
+			<frame id ="walk-0" loop = "1" count = "4">48,49,50</frame>
+			<frame id ="walk-3" loop = "1" count = "4">60,61,62</frame>
+			<frame id ="walk-2" loop = "1" count = "4">72, 73, 74</frame>
+			<frame id ="walk-1" loop = "1" count = "4">84, 85, 86</frame>
+		</enemy>
+		<enemy id ="bat">
+			<frame id ="idle-0" loop = "1" count = "1">49</frame>
+			<frame id ="idle-3" loop = "1" count = "1">61</frame>
+			<frame id ="idle-1" loop = "1" count = "1">73</frame>
+			<frame id ="idle-2" loop = "1" count = "1">85</frame>
+			
+			<frame id ="walk-0" loop = "1" count = "3">48,49,50</frame>
+			<frame id ="walk-3" loop = "1" count = "3">60,61,62</frame>
+			<frame id ="walk-2" loop = "1" count = "3">72, 73, 74</frame>
+			<frame id ="walk-1" loop = "1" count = "3">84, 85, 86</frame>
+		</enemy>
+		<enemy id ="ghost">
+			<frame id ="idle-0" loop = "1" count = "1">49</frame>
+			<frame id ="idle-3" loop = "1" count = "1">61</frame>
+			<frame id ="idle-1" loop = "1" count = "1">73</frame>
+			<frame id ="idle-2" loop = "1" count = "1">85</frame>
+			
+			<frame id ="walk-0" loop = "1" count = "3">48,49,50</frame>
+			<frame id ="walk-3" loop = "1" count = "3">60,61,62</frame>
+			<frame id ="walk-2" loop = "1" count = "3">72, 73, 74</frame>
+			<frame id ="walk-1" loop = "1" count = "3">84, 85, 86</frame>
+		</enemy>
+		<enemy id ="spider">
+			<frame id ="idle-0" loop = "1" count = "1">49</frame>
+			<frame id ="idle-3" loop = "1" count = "1">61</frame>
+			<frame id ="idle-1" loop = "1" count = "1">73</frame>
+			<frame id ="idle-2" loop = "1" count = "1">85</frame>
+			
+			<frame id ="walk-0" loop = "1" count = "3">48,49,50</frame>
+			<frame id ="walk-3" loop = "1" count = "3">60,61,62</frame>
+			<frame id ="walk-2" loop = "1" count = "3">72, 73, 74</frame>
+			<frame id ="walk-1" loop = "1" count = "3">84, 85, 86</frame>
+		</enemy>
+		<enemy id ="skull">
+			<frame id ="idle-0" loop = "1" count = "1">49</frame>
+			<frame id ="idle-3" loop = "1" count = "1">61</frame>
+			<frame id ="idle-1" loop = "1" count = "1">73</frame>
+			<frame id ="idle-2" loop = "1" count = "1">85</frame>
+			
+			<frame id ="walk-0" loop = "1" count = "3">48,49,50</frame>
+			<frame id ="walk-3" loop = "1" count = "3">60,61,62</frame>
+			<frame id ="walk-2" loop = "1" count = "3">72, 73, 74</frame>
+			<frame id ="walk-1" loop = "1" count = "3">84, 85, 86</frame>
+		</enemy>
+	</sequence>
+</animations>

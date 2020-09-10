@@ -4,9 +4,10 @@
 #include "Tile.h"
 #include "GameObject/Constant.h"
 #include "TileLayer.h"
-
-
-
+#include <map>
+#include <utility>
+#include "GameMaps/TileRoom.h"
+#include "Player.h"
 class Dungeon
 {
 public:
@@ -26,7 +27,11 @@ public:
 	int			NumberOfNeighbor(Vector2 Pos);
 	Vector2		SelectNewPostion();
 	bool		IsContains(Vector2 pos);
-	int		FindRoom(int d_row, int d_col);
+	int			FindRoom(int d_row, int d_col);
+	std::shared_ptr<Sprite2D> FindTileRoom(int w, int h);
+	void		ParseSprite(std::string filename);
+	void		ParseAnimation(std::string filename);
+	void		ChangeRoom(DoorDirection dir);
 protected:
 	std::shared_ptr<Models>		m_pModel;
 	std::shared_ptr<Shaders>	m_pShader;
@@ -38,7 +43,12 @@ private:
 	std::vector<Vector2> TakenList;
 	int gridSizeX, gridSizeY;
 
+	std::map< std::pair<int, int>, std::shared_ptr<Sprite2D> > m_RoomSprites;
 	//std::shared_ptr<Room>m_DungeonRooms[10];
 	std::shared_ptr<TileLayer> m_CurrentRoom;
 	std::shared_ptr<TileLayer> m_NextRoom;
+	std::shared_ptr<TileRoom> m_CurrentTileRoom;
+	std::shared_ptr<TileRoom> m_NexttileRoom;
+	std::shared_ptr<Player> m_Player;
+	std::map< std::string, std::shared_ptr<Animation> > m_EnemyAnimations;
 };

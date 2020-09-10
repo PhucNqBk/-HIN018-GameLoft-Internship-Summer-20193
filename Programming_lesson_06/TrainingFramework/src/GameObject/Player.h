@@ -11,6 +11,11 @@ public:
 
 	void		HandleKeyEvents(int key, bool bIsPressed);
 	void		Update(GLfloat deltaTime) ;
+	void		SetLastX();
+	void		SetLastY();
+
+	
 private:
+	Vector2		m_LastSafePos;
 };
 

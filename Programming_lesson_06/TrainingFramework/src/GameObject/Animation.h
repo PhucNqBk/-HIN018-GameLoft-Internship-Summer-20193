@@ -10,6 +10,7 @@ public:
 	void		Init();
 	void		Draw() override;
 	void		Update(GLfloat deltatime) override;
+	void		Update(GLfloat deltatime, bool isInvunerable);
 	void		SetIsLoop(bool loop);
 	int		GetCurrentFrame();
 	int		GetFrameCount();

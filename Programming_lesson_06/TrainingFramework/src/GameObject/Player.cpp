@@ -6,6 +6,7 @@ Player::Player()
 {
 	SetCollider(0, 0, 48, 48);
 	m_Health = 12;
+	m_HitBoxEnable = false;
 }
 Player::~Player()
 {
@@ -88,9 +89,21 @@ void Player::Update(GLfloat deltaTime) {
 	//	std::cout << "Shoot :" << presss << std::endl;
 	}
 	*/
+	//std::cout << m_HitBoxEnable << std::endl;
+	//std::cout << m_HitBox.OffsetX << " " << m_HitBox.OffsetY << " " << m_HitBox.w << m_HitBox.h << std::endl;
 	m_LastSafePos = GetPosition();
-	m_CurrentAnimation->Update(deltaTime);
-	m_StateMachine->Update(deltaTime);
+	if (m_IsInvulnerable)
+	{
+		m_InvunerableTimer += deltaTime;
+		if (m_InvunerableTimer >= m_InvunerableDuration) 
+		{
+			m_IsInvulnerable = false;
+			m_InvunerableTimer = 0;
+		}
+	}
+		m_CurrentAnimation->Update(deltaTime);
+		m_StateMachine->Update(deltaTime);
+	
 }
 void Player::SetLastX()
 {
@@ -99,4 +112,28 @@ void Player::SetLastX()
 void Player::SetLastY()
 {
 	SetPosition(m_Position.x, m_LastSafePos.y);
+}
+bool Player::HitBoxCollision(float posX, float posY, Collider2D other)
+{
+	bool overlap_x = ((m_Position.x + m_HitBox.OffsetX - m_HitBox.w / 2) < (posX + other.OffsetX + other.w / 2)) && ((m_Position.x + m_HitBox.OffsetX + m_HitBox.w / 2) > (posX + other.OffsetX - other.w / 2));
+	bool overlap_y = ((m_Position.y + m_HitBox.OffsetY - m_HitBox.h / 2) < (posY + other.OffsetY + other.h / 2)) && ((m_Position.y + m_HitBox.OffsetY + m_HitBox.h / 2) > (posY + other.OffsetY - other.h / 2));
+
+	return (overlap_x && overlap_y & GetHitBoxEnable());
+}
+bool Player::GetInvunerable()
+{
+	return m_IsInvulnerable;
+
+}
+void Player::Damage(int amount)
+{
+	if (amount >= m_Health)
+	{
+		m_Health = 0;
+		m_IsDead = true;
+	}
+	else {
+		m_Health -= amount;
+	}
+	m_IsInvulnerable = true;
 }

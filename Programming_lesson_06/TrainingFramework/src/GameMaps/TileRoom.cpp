@@ -117,7 +117,8 @@ void TileRoom::Draw()
 	{
 		it->Draw();
 	}
-	m_Player->Draw();
+	if(m_Player->GetIsDead() == false) m_Player->Draw();
+	if(slime->GetIsDead() == false) slime->Draw();
 }
 void TileRoom::Update(GLfloat deltatime)
 {
@@ -127,7 +128,24 @@ void TileRoom::Update(GLfloat deltatime)
 		m_Player->SetLastX();
 		m_Player->SetLastY();
 	}
+	Vector2 pos = slime->GetPosition();
+	if (m_Player->Collision(pos.x, pos.y, slime->GetCollider()) && (slime->GetIsDead() == false))
+	{
+		//std::cout << "Collison" << std::endl;
+		m_Player->SetLastX();
+		m_Player->SetLastY();
+		if ((m_Player->GetInvunerable() == false))
+		{
+			m_Player->Damage(1);
+		}
+		
+	}
+	if (m_Player->HitBoxCollision(pos.x, pos.y,slime->GetCollider()) && (slime->GetIsDead() ==false) )
+	{
+		slime->Damage(1);
+	}
 	m_Player->Update(deltatime);
+	slime->Update(deltatime);
 }
 void TileRoom::SetPosition(float x, float y)
 {
@@ -232,4 +250,9 @@ void TileRoom::SetPlayerPositionWithDoor(DoorDirection dir)
 		Vector2 doorPos = m_Doors[DoorDirection::RIGHT]->GetPosition();
 		m_Player->SetPosition(doorPos.x - 100, doorPos.y);
 	}
+}
+void TileRoom::GenerateEnemy(std::shared_ptr<EnemyData> eData)
+{
+	slime = std::make_shared<Enemy>(eData);
+	slime->SetPosition(900, 360);
 }

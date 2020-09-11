@@ -28,6 +28,9 @@
     <Filter Include="TrainingFramework\src\tinyxml">
       <UniqueIdentifier>{ada2e4ee-6c3e-408a-9bb3-9c612b19fab4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TrainingFramework\src\GameObject\GameObjectData">
+      <UniqueIdentifier>{7756a8d9-e7e8-49bb-beaa-71fa63b9834d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -151,6 +154,30 @@
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\Enemy.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\EnemyData.cpp">
+      <Filter>TrainingFramework\src\GameObject\GameObjectData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Item.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\ItemData.cpp">
+      <Filter>TrainingFramework\src\GameObject\GameObjectData</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Coin.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Potion.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Portal.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Switch.cpp">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\UIContainer.cpp">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -282,6 +309,30 @@
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\Enemy.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\EnemyData.h">
+      <Filter>TrainingFramework\src\GameObject\GameObjectData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Item.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\ItemData.h">
+      <Filter>TrainingFramework\src\GameObject\GameObjectData</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Coin.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Potion.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Portal.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Switch.h">
+      <Filter>TrainingFramework\src\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\UIContainer.h">
       <Filter>TrainingFramework\src\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

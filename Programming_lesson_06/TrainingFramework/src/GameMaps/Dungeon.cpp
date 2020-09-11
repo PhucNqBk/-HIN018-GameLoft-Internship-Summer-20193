@@ -5,6 +5,8 @@
 Dungeon::Dungeon()
 {
 	ParseSprite("../Data/Asset/maps.mml");
+	ParseEnemyData("../Data/Asset/enemies.aml");
+	ParseItemData("../Data/Asset/items.aml");
 	for (int i = 0; i < DUNGEON_HEIGHT; i++)
 	{
 		for (int j = 0; j < DUNGEON_WIDTH; j++)
@@ -46,17 +48,23 @@ Dungeon::Dungeon()
 		//std::cout << m_DungeonRooms.size() << std::endl;;
 	}
 
+	// Make player
 	m_Player = std::make_shared<Player>();
 	m_Player->CreatAnimation("../Data/Asset/animations.aml");
 	m_Player->SetEntity(m_Player);
 	m_Player->ChangeState(EntityStateType::IDLE);
 
+	//Make UI;
+	m_UI = std::make_shared<UIContainer>(m_Player);
+
+	//make first room
 	m_DungeonRooms[6].m_ColCount = 20;
 	auto rSpr = FindTileRoom(m_DungeonRooms[1].m_ColCount, m_DungeonRooms[1].m_RowCount);
 	m_CurrentTileRoom = std::make_shared<TileRoom>();
 	m_CurrentTileRoom->InitRoom(m_DungeonRooms[1], rSpr);
 	m_CurrentTileRoom->SetPlayer(m_Player);
 	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[0]);
+	m_CurrentTileRoom->GenerateEnemy(m_EnemyDataList["slime"]);
 	m_CurrentTileRoom->SetPosition(1280 / 2, 720 / 2);
 		
 }
@@ -179,6 +187,7 @@ void Dungeon::Init()
 void Dungeon::Draw()
 {
 	m_CurrentTileRoom->Draw();
+	m_UI->Draw();
 }
 void Dungeon::Update(GLfloat deltatime)
 {
@@ -198,6 +207,7 @@ void Dungeon::Update(GLfloat deltatime)
 		}
 		
 	}
+	m_UI->Update(deltatime);
 }
 void Dungeon::HandleKeyEvents(int key, bool bIsPressed)
 {
@@ -469,10 +479,10 @@ void Dungeon::ParseSprite(std::string filename)
 	m_RoomSprites = m_Texts;
 
 }
-void Dungeon::ParseAnimation(std::string filename)
+void Dungeon::ParseEnemyData(std::string filename)
 {
 
-	std::map<std::string, std::shared_ptr<Animation>> m_Anims;
+	std::map<std::string, std::shared_ptr<EnemyData>> m_EnemyData;
 	TiXmlDocument xml;
 	xml.LoadFile(filename);
 
@@ -504,13 +514,15 @@ void Dungeon::ParseAnimation(std::string filename)
 			{
 				if (fr->Value() == std::string("enemy"))
 				{
-					std::string animid = fr->Attribute("id");
-
-					for (TiXmlElement* er = e->FirstChildElement(); er != nullptr; er = er->NextSiblingElement())
+					std::shared_ptr<EnemyData> eData = std::make_shared<EnemyData>(model, shader, texture);
+					std::string eId = fr->Attribute("id");
+					eData->SetHealth(2);
+					std::map<std::string, AnimationData> m_AnimData;
+					for (TiXmlElement* er = fr->FirstChildElement(); er != nullptr; er = er->NextSiblingElement())
 					{
 						if (er->Value() == std::string("frame"))
 						{
-							std::string id = er->Attribute("id");
+							std::string animId = er->Attribute("id");
 							int isLoop;
 							er->Attribute("loop", &isLoop);
 							int Count;
@@ -529,20 +541,108 @@ void Dungeon::ParseAnimation(std::string filename)
 								conv >> tId;
 								tIds.push_back(tId);
 							}
-							std::shared_ptr<Animation> anim = std::make_shared<Animation>(model, shader, texture, RowCount, ColCount, 0.1f);
-							anim->SetIDs(tIds);
-							anim->SetIsLoop(isLoop == 1);
-							anim->SetSize(tile_w, tile_h);
-							m_Anims[id] = anim;
+							AnimationData anim;
+							anim.m_IDs = tIds;
+							anim.m_IsLoop = (isLoop == 1);
+							anim.m_ColCount = ColCount;
+							anim.m_RowCount = RowCount;
+							anim.m_FrameCount = tIds.size();
+							anim.m_FrameTime = 0.1f;
+
+							m_AnimData[animId] = anim;
 						}
 					}
+					eData->SetAnimationData(m_AnimData);
+					m_EnemyData[eId] = eData;
 				}
 			}
 
 		}
 	}
-	m_EnemyAnimations = m_Anims;
+	m_EnemyDataList = m_EnemyData;
 
+}
+void Dungeon::ParseItemData(std::string filename)
+{
+	std::map<std::string, std::shared_ptr<ItemData>> m_ItemData;
+	TiXmlDocument xml;
+	xml.LoadFile(filename);
+
+	if (xml.Error()) {
+		std::cerr << "Failed to load: " << filename << std::endl;
+		return;
+	}
+
+	TiXmlElement* root = xml.RootElement();
+	for (TiXmlElement* e = root->FirstChildElement(); e != nullptr; e = e->NextSiblingElement())
+	{
+		if (e->Value() == std::string("sequence"))
+		{
+			std::string modelname = e->Attribute("model");
+			std::string shadername = e->Attribute("shader");
+			std::string texturename = e->Attribute("texture");
+
+			int RowCount, ColCount, tile_w, tile_h;
+			e->Attribute("RowCount", &RowCount);
+			e->Attribute("FrameCount", &ColCount);
+			e->Attribute("width", &tile_w);
+			e->Attribute("height", &tile_h);
+
+			auto model = ResourceManagers::GetInstance()->GetModel(modelname);
+			auto texture = ResourceManagers::GetInstance()->GetTexture(texturename, GL_NEAREST);
+			auto shader = ResourceManagers::GetInstance()->GetShader(shadername);
+
+			for (TiXmlElement* fr = e->FirstChildElement(); fr != nullptr; fr = fr->NextSiblingElement())
+			{
+				if (fr->Value() == std::string("items"))
+				{
+					std::shared_ptr<ItemData> iData = std::make_shared<ItemData>(model, shader, texture);
+					std::string iId = fr->Attribute("type");
+					iData->SetDuration(3.0f);
+					std::vector<AnimationData> m_AnimData;
+					for (TiXmlElement* er = fr->FirstChildElement(); er != nullptr; er = er->NextSiblingElement())
+					{
+						if (er->Value() == std::string("frame"))
+						{
+							int animId;
+							er->Attribute("id", &animId);
+							int isLoop;
+							er->Attribute("loop", &isLoop);
+							int Count;
+							er->Attribute("count", &Count);
+
+							//std::cout << model << " " << shader << " " << texture << " " << id << "" << std::endl;
+							auto s = er->GetText();
+							std::string val;
+							std::istringstream iss(s);
+							int tId;
+							std::vector<int> tIds;
+							for (int i = 0; i < Count; i++)
+							{
+								std::getline(iss, val, ',');
+								std::stringstream conv(val);
+								conv >> tId;
+								tIds.push_back(tId);
+							}
+							AnimationData anim;
+							anim.m_IDs = tIds;
+							anim.m_IsLoop = (isLoop == 1);
+							anim.m_ColCount = ColCount;
+							anim.m_RowCount = RowCount;
+							anim.m_FrameCount = tIds.size();
+							anim.m_FrameTime = 0.1f;
+
+							m_AnimData.push_back(anim);
+						}
+					}
+					iData->SetAnimationData(m_AnimData);
+					m_ItemData[iId] = iData;
+				}
+			}
+
+		}
+	}
+	m_ItemDataList = m_ItemData;
 }
 std::shared_ptr<Sprite2D> Dungeon::FindTileRoom(int w, int h)
 {

@@ -8,6 +8,11 @@
 #include <utility>
 #include "GameMaps/TileRoom.h"
 #include "Player.h"
+#include "EnemyData.h"
+#include "Enemy.h"
+#include "ItemData.h"
+#include "Item.h"
+#include "UIContainer.h"
 class Dungeon
 {
 public:
@@ -30,7 +35,8 @@ public:
 	int			FindRoom(int d_row, int d_col);
 	std::shared_ptr<Sprite2D> FindTileRoom(int w, int h);
 	void		ParseSprite(std::string filename);
-	void		ParseAnimation(std::string filename);
+	void		ParseEnemyData(std::string filename);
+	void		ParseItemData(std::string filename);
 	void		ChangeRoom(DoorDirection dir);
 protected:
 	std::shared_ptr<Models>		m_pModel;
@@ -44,11 +50,12 @@ private:
 	int gridSizeX, gridSizeY;
 
 	std::map< std::pair<int, int>, std::shared_ptr<Sprite2D> > m_RoomSprites;
-	//std::shared_ptr<Room>m_DungeonRooms[10];
 	std::shared_ptr<TileLayer> m_CurrentRoom;
 	std::shared_ptr<TileLayer> m_NextRoom;
 	std::shared_ptr<TileRoom> m_CurrentTileRoom;
 	std::shared_ptr<TileRoom> m_NexttileRoom;
 	std::shared_ptr<Player> m_Player;
-	std::map< std::string, std::shared_ptr<Animation> > m_EnemyAnimations;
+	std::map< std::string, std::shared_ptr<EnemyData>> m_EnemyDataList;
+	std::map<std::string, std::shared_ptr<ItemData> > m_ItemDataList;
+	std::shared_ptr<UIContainer> m_UI;
 };

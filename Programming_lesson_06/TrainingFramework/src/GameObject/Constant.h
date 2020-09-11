@@ -55,6 +55,14 @@ struct Collider2D {
 	float w;
 	float h;
 };
+struct AnimationData {
+	std::vector<int> m_IDs;
+	bool m_IsLoop;
+	int m_RowCount;
+	int m_ColCount;
+	int m_FrameCount;
+	float m_FrameTime;
+};
 #define MFORWARD 1
 #define MBACKWARD 2
 #define MUPWARD 4
@@ -75,3 +83,8 @@ enum Direction {
 #define DOOR_RIGHT 2
 #define DOOR_UP 3
 #define DOOR_LEFT 4
+
+#define COIN 0;
+#define POTION 1
+#define PORTAL 2
+#define SWITCH 3

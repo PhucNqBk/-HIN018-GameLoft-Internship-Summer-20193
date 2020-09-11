@@ -6,6 +6,14 @@
 #include "Door.h"
 #include "Player.h"
 #include "Entity.h"
+#include "EnemyData.h"
+#include "Enemy.h"
+#include "Item.h"
+#include "Item.h"
+#include "Coin.h"
+#include "Potion.h"
+#include "Portal.h"
+#include "Switch.h"
 class TileRoom
 {
 public:
@@ -33,7 +41,7 @@ public:
 	void		InitializeCollisionMatrix();
 	void		GeneratedObject();
 	void		AddDoor(bool isEnable, bool isOpen, DoorDirection dir);
-
+	void		GenerateEnemy(std::shared_ptr<EnemyData> eData);
 private:
 	std::shared_ptr<Sprite2D> m_TileMap;
 	std::vector<std::vector<int> > m_CollsionMap;
@@ -42,4 +50,8 @@ private:
 	int	m_DungRow, m_DungCol;
 	Vector2 m_Position;
 	std::shared_ptr<Player> m_Player;
+	std::shared_ptr<Enemy> slime;
+	std::vector<std::shared_ptr<Enemy> > m_Enemies;
+	std::vector<std::shared_ptr<Switch> > m_Switches;
+	std::vector<std::shared_ptr<Item>> m_Items;
 };

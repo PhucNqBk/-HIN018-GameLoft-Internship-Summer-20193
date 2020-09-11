@@ -1,22 +1,58 @@
 ﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Player.cpp
-  Entity.cpp
-  Enemy.cpp
+  Dungeon.cpp
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(18): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(82): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(151): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(269): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(268): warning C4101: 'y1': unreferenced local variable
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(268): warning C4101: 'x1': unreferenced local variable
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(286): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(321): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(322): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(347): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(412): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(422): warning C4018: '<': signed/unsigned mismatch
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(429): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  GSMenu.cpp
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(26): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(32): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(42): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(52): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(63): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(73): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(96): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(107): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1801): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[17],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[17],TEXT_COLOR &&,double &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.16.27023\include\memory(1866): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[17],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[17],TEXT_COLOR &&,double &&)' being compiled
+          with
+          [
+              _Ty=Text
+          ]
+  c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamestates\gsmenu.cpp(106): note: see reference to function template instantiation 'std::shared_ptr<Text> std::make_shared<Text,std::shared_ptr<Shaders>&,std::shared_ptr<Font>&,const char(&)[17],TEXT_COLOR,double>(std::shared_ptr<Shaders> &,std::shared_ptr<Font> &,const char (&)[17],TEXT_COLOR &&,double &&)' being compiled
   Generating Code...
   Skipping... (no relevant changes detected)
-  GSPlay.cpp
-  GSMenu.cpp
-  GameStatebase.cpp
-  TileRoom.cpp
-  Dungeon.cpp
+  Player.cpp
+  Entity.cpp
   PSWalk.cpp
   PSSword.cpp
   PSIdle.cpp
+  EntityStateMachine.cpp
+  EntityStateBase.cpp
   ESWalk.cpp
   ESIdle.cpp
   ESAttack.cpp
-  EntityStateMachine.cpp
-  EntityStateBase.cpp
-Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  GameStatebase.cpp
+  GSPlay.cpp
+  TileRoom.cpp
   TrainingFramework.vcxproj -> C:\Users\Fourier_Sp\Downloads\Compressed\Programming_lesson_06\\BIN-Nvidia\TrainingFramework.exe

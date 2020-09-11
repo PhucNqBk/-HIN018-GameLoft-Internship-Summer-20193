@@ -12,7 +12,7 @@ public:
 	
 	void		Init();
 	void		Draw();
-	void		Update(GLfloat deltaTime);
+	virtual void		Update(GLfloat deltaTime);
 
 	Direction	GetDirection();
 	void		SetDirection(Direction dir);
@@ -22,13 +22,19 @@ public:
 	int			GetKeyPress();
 	void		CreatAnimation(std::string filename);
 	std::shared_ptr<Animation> GetCurrentAnimation();
-	void		GetHealth();
+	int			GetHealth();
+	void		SetHealth(int amount);
+	virtual void		Damage(int amount);
+	bool		GetIsDead();
 	void		ChangeState(EntityStateType stt);
 	void		ChangeAnimation(std::string id);
 	void		SetCollider(float x, float y, float w, float h);
+	Collider2D	GetCollider();
 	bool		MapCollision(float posX, float posY, float col, float row);
 	bool		Collision(float posX, float posY, Collider2D other);
-
+	void		SetHitBox(float x, float y, float w, float h);
+	void		SetHitBoxEnable(bool isEnable);
+	bool		GetHitBoxEnable();
 protected:
 	int			m_CheckKeyPress;
 	Direction	m_Direction;
@@ -36,11 +42,13 @@ protected:
 	bool		m_IsInvulnerable;
 	float		m_InvunerableDuration;
 	float		m_InvunerableTimer;
-	bool		Is_Dead;
+	bool		m_IsDead;
 	Vector2		m_Position;
 
 	std::map<std::string, std::shared_ptr<Animation> > m_Animations;
 	std::shared_ptr<Animation> m_CurrentAnimation;
 	std::shared_ptr<EntityStateMachine> m_StateMachine;
 	Collider2D m_Collider;
+	Collider2D	m_HitBox;
+	bool		m_HitBoxEnable;
 };

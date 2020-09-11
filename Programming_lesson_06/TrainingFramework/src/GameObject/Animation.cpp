@@ -98,6 +98,18 @@ void Animation::Update(GLfloat deltatime)
 		m_CurrentTime -= m_FrameTime;
 	}
 }
+void Animation::Update(GLfloat deltatime, bool isInvunerable)
+{
+	m_CurrentTime += deltatime;
+	if (m_CurrentTime > m_FrameTime) {
+		m_CurrentFrame++;
+		if (m_CurrentFrame >= m_FrameCount) {
+			m_CurrentFrame = 0;
+		}
+
+		m_CurrentTime -= deltatime;
+	}
+}
 void Animation::SetIDs(const int a[], int count)
 {
 	m_IDs.clear();

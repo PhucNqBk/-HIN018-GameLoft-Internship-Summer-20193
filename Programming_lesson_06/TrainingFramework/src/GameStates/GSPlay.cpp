@@ -9,6 +9,7 @@
 #include "Sprite3D.h"
 #include "Text.h"
 #include "Entity.h"
+#include <time.h>
 extern int screenWidth; //need get on Graphic engine
 extern int screenHeight; //need get on Graphic engine
 
@@ -25,6 +26,8 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	srand(time(NULL));
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D");
 	auto model1 = ResourceManagers::GetInstance()->GetModel("Sprite2Dv1");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play");
@@ -100,7 +103,7 @@ void GSPlay::Update(float deltaTime)
 void GSPlay::Draw()
 {
 	//DWORD st = GetTickCount();
-	m_BackGround->Draw();
+	//m_BackGround->Draw();
 //	st = GetTickCount();
 	testDungeon->Draw();
 //	std::cout << "Dung:" << GetTickCount() - st << std::endl;

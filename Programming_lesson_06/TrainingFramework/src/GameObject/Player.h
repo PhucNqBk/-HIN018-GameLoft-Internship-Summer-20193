@@ -10,11 +10,12 @@ public:
 	~Player();
 
 	void		HandleKeyEvents(int key, bool bIsPressed);
-	void		Update(GLfloat deltaTime) ;
+	virtual void		Update(GLfloat deltaTime) ;
 	void		SetLastX();
 	void		SetLastY();
-
-	
+	bool		HitBoxCollision(float posX, float posY, Collider2D other);
+	bool		GetInvunerable();
+	virtual void Damage(int amount) override;
 private:
 	Vector2		m_LastSafePos;
 };

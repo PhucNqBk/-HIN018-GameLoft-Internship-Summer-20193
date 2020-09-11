@@ -4,12 +4,12 @@
 #include <string>
 #include <map>
 #include "ResourceManagers.h"
-Entity::Entity(int eType)
+Entity::Entity(int eType):
+	m_CheckKeyPress(0), m_IsDead(false), m_InvunerableDuration(0.2f), m_InvunerableTimer(0.0f)
 {
 	m_Direction = Direction::DIR_UP;
 	m_Position = Vector2(1280 / 2, 720 / 2);
 	m_StateMachine = std::make_shared<EntityStateMachine>(eType);
-	m_CheckKeyPress = 0;
 }
 Entity::~Entity()
 {
@@ -118,10 +118,30 @@ void Entity::CreatAnimation(std::string filename)
 	m_CurrentAnimation = m_Animations["player-idle-0"];
 	return ;
 }
-void Entity::GetHealth()
+int Entity::GetHealth()
 {
-
+	return m_Health;
 }
+void Entity::SetHealth(int amount)
+{
+	m_Health = amount;
+}
+void Entity::Damage(int amount)
+{
+	if (amount >= m_Health)
+	{
+		m_Health = 0;
+		m_IsDead = true;
+	}
+	else {
+		m_Health -= amount;
+	}
+}
+bool Entity::GetIsDead()
+{
+	return m_IsDead;
+}
+
 void Entity::ChangeState(EntityStateType stt)
 {
 	m_StateMachine->ChangeState(stt);
@@ -143,6 +163,25 @@ void Entity::SetCollider(float x, float y, float w, float h)
 	m_Collider.w = w;
 	m_Collider.h = h;
 }
+Collider2D Entity::GetCollider()
+{
+	return m_Collider;
+}
+void Entity::SetHitBox(float x, float y, float w, float h)
+{
+	m_HitBox.OffsetX = x;
+	m_HitBox.OffsetY = y;
+	m_HitBox.w = w;
+	m_HitBox.h = h;
+}
+void Entity::SetHitBoxEnable(bool isEnable)
+{
+	m_HitBoxEnable = isEnable;
+}
+bool Entity::GetHitBoxEnable()
+{
+	return m_HitBoxEnable;
+}
 bool Entity::MapCollision(float posX, float posY, float col, float row)
 {
 	
@@ -154,6 +193,7 @@ bool Entity::MapCollision(float posX, float posY, float col, float row)
 bool Entity::Collision(float posX, float posY,Collider2D other)
 {
 	bool overlap_x = ((m_Position.x + m_Collider.OffsetX - m_Collider.w / 2) < (posX + other.OffsetX + other.w/2)) && ((m_Position.x + m_Collider.OffsetX + m_Collider.w / 2) > (posX + other.OffsetX - other.w/2));
-	bool overlap_y = ((m_Position.y + m_Collider.OffsetX - m_Collider.h / 2) < (posY + other.OffsetY + other.h/2)) && ((m_Position.y + m_Collider.OffsetY + m_Collider.h / 2) > (posY + other.OffsetY - other.h / 2));
+	bool overlap_y = ((m_Position.y + m_Collider.OffsetY - m_Collider.h / 2) < (posY + other.OffsetY + other.h/2)) && ((m_Position.y + m_Collider.OffsetY + m_Collider.h / 2) > (posY + other.OffsetY - other.h / 2));
 	return (overlap_x && overlap_y);
 }
+

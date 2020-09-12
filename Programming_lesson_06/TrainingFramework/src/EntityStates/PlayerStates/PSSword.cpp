@@ -3,6 +3,8 @@
 PSSword::PSSword()
 {
 	m_Time = 0.4f;
+	wav.load("../Data/Sound/Sword2.wav");
+
 }
 PSSword::~PSSword()
 {
@@ -37,7 +39,8 @@ void PSSword::Init()
 		m_Entity->ChangeAnimation("player-sword-3");
 		m_Entity->SetHitBox(-24, 0, 40, 48);
 	}
-		
+	Application::GetInstance()->soloud.play(wav);
+	//Application::GetInstance()->soloud.play(wav1);
 }
 void PSSword::Exit()
 {
@@ -53,7 +56,7 @@ void PSSword::Update(float deltaTime)
 {
 	int KeyPress = m_Entity->GetKeyPress();
 	/*
-	
+
 	//std::cout << "IDLE: " << KeyPress << std::endl;
 	if (KeyPress & MFORWARD) {
 		m_Entity->SetDirection(Direction::DIR_RIGHT);
@@ -75,6 +78,10 @@ void PSSword::Update(float deltaTime)
 		m_Entity->ChangeState(EntityStateType::WALK);
 	}
 	*/
+	
+	
+		
+
 	bool isEnd =(m_Entity->GetCurrentAnimation()->GetCurrentFrame() == m_Entity->GetCurrentAnimation()->GetFrameCount() - 1);
 	m_CurrentTime += deltaTime;
 	if (isEnd)
@@ -82,9 +89,12 @@ void PSSword::Update(float deltaTime)
 		m_Entity->ChangeState(EntityStateType::IDLE);
 		m_Entity->SetHitBoxEnable(false);
 	}
+	/*
 	if (KeyPress & P_SWORD)
 	{
 		m_Entity->ChangeState(EntityStateType::SWORD);
 	}
+	*/
+	
 
 }

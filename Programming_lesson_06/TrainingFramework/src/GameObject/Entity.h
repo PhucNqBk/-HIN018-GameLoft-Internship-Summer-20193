@@ -35,6 +35,20 @@ public:
 	void		SetHitBox(float x, float y, float w, float h);
 	void		SetHitBoxEnable(bool isEnable);
 	bool		GetHitBoxEnable();
+	virtual void ProcessAI(float x, float y, float deltatime);
+
+	void		SetRange(float range);
+	float		GetRange();
+	void		SetWalkSpeed(float speed);
+	float		GetWalkSpeed();
+	void		MoveToDirection(Direction dir, float deltatime);
+	virtual void AddHeart(int amount);
+	float		GetSwordRate();
+	float		GetSwordTimer();
+	void		SetSwordTimer(float t);
+	void		AddSwordTimer(float t);
+
+
 protected:
 	int			m_CheckKeyPress;
 	Direction	m_Direction;
@@ -44,6 +58,8 @@ protected:
 	float		m_InvunerableTimer;
 	bool		m_IsDead;
 	Vector2		m_Position;
+	
+
 
 	std::map<std::string, std::shared_ptr<Animation> > m_Animations;
 	std::shared_ptr<Animation> m_CurrentAnimation;
@@ -51,4 +67,9 @@ protected:
 	Collider2D m_Collider;
 	Collider2D	m_HitBox;
 	bool		m_HitBoxEnable;
+	float		m_Range;
+	float		m_WalkSpeed;
+
+	float		m_SwordRate;
+	float		m_SwordTimer;
 };

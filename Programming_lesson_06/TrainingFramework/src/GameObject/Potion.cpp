@@ -3,7 +3,7 @@ Potion::Potion() :Item()
 {
 	m_ItemType = POTION;
 }
-Potion::Potion(std::shared_ptr<ItemData> iData)
+Potion::Potion(std::shared_ptr<ItemData> iData): Item()
 {
 	m_ItemType = POTION;
 	Potion::CreateItemFromData(iData);
@@ -21,9 +21,9 @@ void Potion::Update(GLfloat deltatime)
 
 }
 
-void	Potion::TriggerEffect()
+int	Potion::TriggerEffect()
 {
-
+	return m_Heart;
 }
 void	Potion::CreateItemFromData(std::shared_ptr<ItemData> iData)
 {
@@ -33,7 +33,7 @@ void	Potion::CreateItemFromData(std::shared_ptr<ItemData> iData)
 	std::shared_ptr<Texture> texture = iData->GetTexture();
 	std::vector<AnimationData> animData = iData->GetAnimationData();
 	int index = rand() % animData.size();
-	m_Heart = index%21 + 1;
+	m_Heart = index%12 + 1;
 	AnimationData anim = animData[index];
 	m_Animation = std::make_shared<Animation>(model, shader, texture, anim.m_RowCount, anim.m_ColCount, anim.m_FrameTime);
 	m_Animation->SetIDs(anim.m_IDs);

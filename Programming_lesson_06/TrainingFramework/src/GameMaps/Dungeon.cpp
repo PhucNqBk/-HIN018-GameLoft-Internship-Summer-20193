@@ -4,6 +4,8 @@
 #include "ResourceManagers.h"
 Dungeon::Dungeon()
 {
+	m_IsRunning = true;
+	m_DungeonCount = 0;
 	ParseSprite("../Data/Asset/maps.mml");
 	ParseEnemyData("../Data/Asset/enemies.aml");
 	ParseItemData("../Data/Asset/items.aml");
@@ -15,39 +17,115 @@ Dungeon::Dungeon()
 		}
 	}
 	CreateRooms();
+	std::vector<std::pair<int, int>> endRoom;
 	for (int i = 0; i < TakenList.size(); i++)
 	{
 		Room room;
+		int DoorNum = 0;
+		int dir = 0;
 		room.m_RowCount = 2 * (MAP_MIN_HEIGHT + std::rand() % (MAP_MAX_HEIGHT - MAP_MIN_HEIGHT + 1));
 		room.m_ColCount = 2 * (MAP_MIN_WIDTH + std::rand() % (MAP_MAX_WIDTH - MAP_MIN_WIDTH + 1));
 		int x = gridSizeX + (int)TakenList[i].x;
 		int y = gridSizeY + (int)TakenList[i].y;
 		room.m_DungCol = x; room.m_DungRow = y;
-		if (x <= ROOM_WIDTH - 2)
+		if (x <= DUNGEON_WIDTH - 2)
 		{
 			if (m_Dungeon[y][x + 1] == 1)
+			{
 				room.Door_Right = true;
+				DoorNum++;
+				dir = 1;
+			}
+				
 		}
 		if (x - 1 >= 0)
 		{
 			if (m_Dungeon[y][x - 1] == 1)
+			{
 				room.Door_Left = true;
+				DoorNum++;
+				dir = 3;
+			}
+				
 		}
-		if (y <= ROOM_HEIGHT - 2)
+		if (y <= DUNGEON_HEIGHT - 2)
 		{
 			if (m_Dungeon[y + 1][x] == 1)
+			{
 				room.Door_Down = true;
+				DoorNum++;
+				dir = 0;
+
+			}
+				
 		}
 		if (y - 1 >= 0)
 		{
 			if (m_Dungeon[y - 1][x] == 1)
+			{
 				room.Door_Up = true;
+				DoorNum++;
+				dir = 2;
+			}
+				
+		}
+		if (DoorNum == 1)
+		{
+			auto it = std::make_pair(i, dir);
+			endRoom.push_back(it);
 		}
 		room.isCleared = true;
 		m_DungeonRooms.push_back(room);
-		//std::cout << m_DungeonRooms.size() << std::endl;;
+		//std::cout << m_DungeonRooms.size() << std::endl;
 	}
+	
+	// Create endRoom
 
+	int rIndex = rand() % endRoom.size();
+	auto it = endRoom[rIndex];
+	m_DungeonRooms[it.first].m_RoomType = 3;
+	m_DungeonRooms[it.first].DoorDir = it.second;
+
+	//Create pre-end room
+	int rI;
+	int x = gridSizeX + (int)TakenList[it.first].x;
+	int y = gridSizeY + (int)TakenList[it.first].y;
+	if (it.second == 0)
+	{
+		 rI = FindRoom(y+1, x);
+		m_DungeonRooms[rI].DoorDir = 2;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	else if(it.second == 1)
+	{
+		rI = FindRoom(y, x+1);
+		m_DungeonRooms[rI].DoorDir = 3;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	else if(it.second == 2)
+	{
+		rI = FindRoom(y -1, x);
+		m_DungeonRooms[rI].DoorDir = 0;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	else
+	{
+		rI = FindRoom(y, x -1);
+		m_DungeonRooms[rI].DoorDir = 1;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	// Make Switch Room
+	int sR = rand() % m_DungeonRooms.size();
+	while (sR == it.first || sR == rI)
+	{
+		sR = rand() % m_DungeonRooms.size();
+	}
+	m_DungeonRooms[sR].m_RoomType = 4;
+	m_DungeonRooms[sR].isCleared = false;
 	// Make player
 	m_Player = std::make_shared<Player>();
 	m_Player->CreatAnimation("../Data/Asset/animations.aml");
@@ -58,15 +136,25 @@ Dungeon::Dungeon()
 	m_UI = std::make_shared<UIContainer>(m_Player);
 
 	//make first room
-	m_DungeonRooms[6].m_ColCount = 20;
-	auto rSpr = FindTileRoom(m_DungeonRooms[1].m_ColCount, m_DungeonRooms[1].m_RowCount);
+	int jR = rand() % m_DungeonRooms.size();
+	while (jR == it.first || jR == rI)
+	{
+		jR = rand() % m_DungeonRooms.size();
+	}
+	auto rSpr = FindTileRoom(m_DungeonRooms[jR].m_ColCount, m_DungeonRooms[jR].m_RowCount);
 	m_CurrentTileRoom = std::make_shared<TileRoom>();
-	m_CurrentTileRoom->InitRoom(m_DungeonRooms[1], rSpr);
 	m_CurrentTileRoom->SetPlayer(m_Player);
+	m_Player->SetHasKey(false);
+	m_CurrentTileRoom->CreatePortal(m_ItemDataList["portal"]);
+	m_CurrentTileRoom->CreateSwitch(m_ItemDataList["switch"]);
+	m_CurrentTileRoom->SetEnemyDataList(m_EnemyDataList);
+	m_CurrentTileRoom->SetItemDataList(m_ItemDataList);
 	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[0]);
-	m_CurrentTileRoom->GenerateEnemy(m_EnemyDataList["slime"]);
-	m_CurrentTileRoom->SetPosition(1280 / 2, 720 / 2);
-		
+	m_CurrentTileRoom->InitRoom(m_DungeonRooms[jR], rSpr);
+	//m_CurrentTileRoom->SetPosition(1280 / 2, 720 / 2);
+//	m_CurrentTileRoom->InitRoom(m_DungeonRooms[jR], rSpr);
+	m_Portal = m_CurrentTileRoom->GetPortal();
+	//m_CurrentTileRoom->GenerateEnemies(m_EnemyDataList);
 }
 Dungeon::Dungeon(std::shared_ptr<Models> model, std::shared_ptr<Shaders> shader, std::shared_ptr<Texture> texture):
 	m_pModel(model), m_pShader(shader), m_pTexture(texture)
@@ -110,7 +198,6 @@ Dungeon::Dungeon(std::shared_ptr<Models> model, std::shared_ptr<Shaders> shader,
 		m_DungeonRooms.push_back(room);
 		//std::cout << m_DungeonRooms.size() << std::endl;;
 	}
-	m_DungeonRooms[6].m_ColCount = 20;
 	m_CurrentRoom = std::make_shared<TileLayer>(model, shader, texture, 10, 20);
 	m_CurrentRoom->InitRoom(m_pModel, m_pShader, m_pTexture, m_DungeonRooms[1]);
 	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[0]);
@@ -126,6 +213,7 @@ Dungeon::~Dungeon()
 
 void Dungeon::Init()
 {
+	m_DungeonCount++;
 	m_DungeonRooms.clear();
 	std::vector<Room>().swap(m_DungeonRooms);
 	TakenList.clear();
@@ -138,50 +226,126 @@ void Dungeon::Init()
 		}
 	}
 	CreateRooms();
-	for (int i = 0; i < DUNGEON_HEIGHT; i++)
-	{
-		for (int j = 0; j < DUNGEON_WIDTH; j++)
-		{
-
-			std::cout << m_Dungeon[i][j] << ". ";
-
-		}
-		std::cout << std::endl;
-	}
+	
+	std::vector<std::pair<int, int>> endRoom;
 	for (int i = 0; i < TakenList.size(); i++)
 	{
 		Room room;
+		int DoorNum = 0;
+		int dir = 0;
 		room.m_RowCount = 2 * (MAP_MIN_HEIGHT + std::rand() % (MAP_MAX_HEIGHT - MAP_MIN_HEIGHT + 1));
 		room.m_ColCount = 2 * (MAP_MIN_WIDTH + std::rand() % (MAP_MAX_WIDTH - MAP_MIN_WIDTH + 1));
 		int x = gridSizeX + (int)TakenList[i].x;
 		int y = gridSizeY + (int)TakenList[i].y;
 		room.m_DungCol = x; room.m_DungRow = y;
-		if (x <= ROOM_WIDTH - 2)
+		if (x <= DUNGEON_WIDTH - 2)
 		{
 			if (m_Dungeon[y][x + 1] == 1)
+			{
 				room.Door_Right = true;
+				DoorNum++;
+				dir = 1;
+			}
+
 		}
 		if (x - 1 >= 0)
 		{
 			if (m_Dungeon[y][x - 1] == 1)
+			{
 				room.Door_Left = true;
+				DoorNum++;
+				dir = 3;
+			}
+
 		}
-		if (y <= ROOM_HEIGHT - 2)
+		if (y <= DUNGEON_HEIGHT - 2)
 		{
 			if (m_Dungeon[y + 1][x] == 1)
+			{
 				room.Door_Down = true;
+				DoorNum++;
+				dir = 0;
+
+			}
+
 		}
 		if (y - 1 >= 0)
 		{
 			if (m_Dungeon[y - 1][x] == 1)
+			{
 				room.Door_Up = true;
+				DoorNum++;
+				dir = 2;
+			}
+
 		}
+		if (DoorNum == 1)
+		{
+			auto it = std::make_pair(i, dir);
+			endRoom.push_back(it);
+		}
+		room.isCleared = true;
 		m_DungeonRooms.push_back(room);
-		//std::cout << m_DungeonRooms.size() << std::endl;;
+		//std::cout << m_DungeonRooms.size() << std::endl;
 	}
-	m_DungeonRooms[6].m_ColCount = 20;
-	auto rSpr = FindTileRoom(m_DungeonRooms[1].m_ColCount, m_DungeonRooms[1].m_RowCount);
-	m_CurrentTileRoom->InitRoom(m_DungeonRooms[1], rSpr);
+	
+	// Create endRoom
+
+	int rIndex = rand() % endRoom.size();
+	auto it = endRoom[rIndex];
+	m_DungeonRooms[it.first].m_RoomType = 3;
+	m_DungeonRooms[it.first].DoorDir = it.second;
+
+	//Create pre-end room
+	int rI;
+	int x = gridSizeX + (int)TakenList[it.first].x;
+	int y = gridSizeY + (int)TakenList[it.first].y;
+	if (it.second == 0)
+	{
+		rI = FindRoom(y + 1, x);
+		m_DungeonRooms[rI].DoorDir = 2;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	else if (it.second == 1)
+	{
+		rI = FindRoom(y, x + 1);
+		m_DungeonRooms[rI].DoorDir = 3;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	else if (it.second == 2)
+	{
+		rI = FindRoom(y - 1, x);
+		m_DungeonRooms[rI].DoorDir = 0;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	else
+	{
+		rI = FindRoom(y, x - 1);
+		m_DungeonRooms[rI].DoorDir = 1;
+		m_DungeonRooms[rI].m_RoomType = 2;
+		m_DungeonRooms[rI].isCleared = false;
+	}
+	//make switch room
+	int sR = rand() % m_DungeonRooms.size();
+	while (sR == it.first || sR == rI)
+	{
+		sR = rand() % m_DungeonRooms.size();
+	}
+	m_DungeonRooms[sR].m_RoomType = 4;
+	m_DungeonRooms[sR].isCleared = false;
+
+	//make first room
+	int jR = rand() % m_DungeonRooms.size();
+	while (jR == it.first || jR == rI)
+	{
+		jR = rand() % m_DungeonRooms.size();
+	}
+	auto rSpr = FindTileRoom(m_DungeonRooms[jR].m_ColCount, m_DungeonRooms[jR].m_RowCount);
+	m_Player->SetHasKey(false);
+	m_CurrentTileRoom->InitRoom(m_DungeonRooms[jR], rSpr);
 	m_CurrentTileRoom->SetPosition(1280 / 2, 720 / 2);
 }
 void Dungeon::Draw()
@@ -207,7 +371,17 @@ void Dungeon::Update(GLfloat deltatime)
 		}
 		
 	}
+	Vector2 pos = m_Portal->GetPosition();
+	if (m_Player->Collision(pos.x, pos.y, m_Portal->GetCollider()) && m_Portal->GetIsEnable() == true)
+	{
+		Init();
+	}
+	if (m_Player->GetIsDead() == true)
+	{
+		//GameStateMachine::GetInstance()->PopState();
+	}
 	m_UI->Update(deltatime);
+	
 }
 void Dungeon::HandleKeyEvents(int key, bool bIsPressed)
 {
@@ -260,21 +434,23 @@ void Dungeon::HandleKeyEvents(int key, bool bIsPressed)
 		}
 	}
 	*/
-	m_Player->HandleKeyEvents(key, bIsPressed);
-}
-void Dungeon::SetRoomsPosition(float x, float y)
-{
-//	m_Position = Vector2(x, y);
-	float x1, y1;
-	for (int i = 0; i < TakenList.size(); ++i)
-	{
-		//x1 = (x - DUNGEON_WIDTH * ROOM_WIDTH / 2) + (2 * m_DungeonRooms[i]->GetDungCol() + 1) * ROOM_WIDTH / 2;
-	//	y1 = (y - DUNGEON_WIDTH * ROOM_HEIGHT / 2) + (2 * m_DungeonRooms[i]->GetDungRow() + 1) * ROOM_HEIGHT / 2;
-	//	m_DungeonRooms[i]->SetPosition(x1, y1);
-
-
+	if (bIsPressed) {
+		switch (key)
+		{
+		case VK_RETURN:
+			m_IsRunning = (m_IsRunning == true) ? false : true;
+			break;
+		case VK_ESCAPE:
+			if (m_IsRunning == false)
+			{
+				GameStateMachine::GetInstance()->PopState();
+			}
+				break;
+		default:
+			break;
+		}
 	}
-	
+	m_Player->HandleKeyEvents(key, bIsPressed);
 }
 void Dungeon::CreateRooms()
 {
@@ -678,8 +854,40 @@ void Dungeon::ChangeRoom(DoorDirection dir)
 	}
 	if (keyX != -1)
 	{
+		if (m_DungeonRooms[keyX].m_RoomType == 2 && m_Player->GetHasKey() == true)
+		{
+			m_DungeonRooms[keyX].isCleared = true;
+		}
+		if (m_DungeonRooms[keyX].m_RoomType == 3 && m_Player->GetHasKey() == true)
+		{
+			m_DungeonRooms[keyX].isCleared = true;
+		}
 		sprite = FindTileRoom(m_DungeonRooms[keyX].m_ColCount, m_DungeonRooms[keyX].m_RowCount);
 		m_CurrentTileRoom->InitRoom(m_DungeonRooms[keyX], sprite);
 		m_CurrentTileRoom->SetPlayerPositionWithDoor(dir);
 	}
+}
+void Dungeon::SetDungeonMaxCount(int count)
+{
+	m_DungeonMaxCount = count;
+}
+int	Dungeon::GetDungeonMaxCount()
+{
+	return m_DungeonMaxCount;
+}
+int	Dungeon::GetDungeonCount()
+{
+	return m_DungeonCount;
+}
+std::shared_ptr<Player> Dungeon::GetPlayer()
+{
+	return m_Player;
+}
+void Dungeon::SetIsRunning(bool isRun)
+{
+	m_IsRunning = isRun;
+}
+bool Dungeon::GetIsRunning()
+{
+	return m_IsRunning;
 }

@@ -5,11 +5,13 @@
 #include <map>
 #include "ResourceManagers.h"
 Entity::Entity(int eType):
-	m_CheckKeyPress(0), m_IsDead(false), m_InvunerableDuration(0.2f), m_InvunerableTimer(0.0f)
+	m_CheckKeyPress(0), m_IsDead(false), m_InvunerableDuration(0.2f), m_InvunerableTimer(0.0f), m_SwordTimer(0.0)
 {
 	m_Direction = Direction::DIR_UP;
 	m_Position = Vector2(1280 / 2, 720 / 2);
 	m_StateMachine = std::make_shared<EntityStateMachine>(eType);
+	m_IsDead = false;
+	m_SwordRate = 0.5f;
 }
 Entity::~Entity()
 {
@@ -196,4 +198,66 @@ bool Entity::Collision(float posX, float posY,Collider2D other)
 	bool overlap_y = ((m_Position.y + m_Collider.OffsetY - m_Collider.h / 2) < (posY + other.OffsetY + other.h/2)) && ((m_Position.y + m_Collider.OffsetY + m_Collider.h / 2) > (posY + other.OffsetY - other.h / 2));
 	return (overlap_x && overlap_y);
 }
+void Entity::ProcessAI(float x, float y, float deltatime)
+{
+	m_StateMachine->ProcessAI(x, y, deltatime);
+}
+void Entity::SetRange(float range)
+{
+	m_Range = range;
+}
+float Entity::GetRange()
+{
+	return m_Range;
+}
+void Entity::SetWalkSpeed(float speed)
+{
+	m_WalkSpeed = speed;
+}
+float Entity::GetWalkSpeed()
+{
+	return m_WalkSpeed;
+}
+void Entity::MoveToDirection(Direction dir, float deltatime)
+{
+	if (dir == Direction::DIR_DOWN)
+	{
+		ChangeAnimation("walk-0");
+		SetPosition(m_Position.x, m_Position.y + m_WalkSpeed * deltatime);
+	}
+	else if (dir == Direction::DIR_RIGHT)
+	{
+		ChangeAnimation("walk-1");
+		SetPosition(m_Position.x + m_WalkSpeed * deltatime, m_Position.y );
+	}
+	else if (dir == Direction::DIR_UP)
+	{
+		ChangeAnimation("walk-2");
+		SetPosition(m_Position.x, m_Position.y - m_WalkSpeed * deltatime);
+	}
+	else
+	{
+		ChangeAnimation("walk-3");
+		SetPosition(m_Position.x - m_WalkSpeed * deltatime, m_Position.y);
+	}
+}
+void Entity::AddHeart(int amount)
+{
 
+}
+float Entity::GetSwordRate()
+{
+	return m_SwordRate;
+}
+float Entity::GetSwordTimer()
+{
+	return m_SwordTimer;
+}
+void Entity::SetSwordTimer(float t)
+{
+	m_SwordTimer = t;
+}
+void Entity::AddSwordTimer(float t)
+{
+	m_SwordTimer += t;
+}

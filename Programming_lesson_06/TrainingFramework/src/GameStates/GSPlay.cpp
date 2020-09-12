@@ -48,18 +48,24 @@ void GSPlay::Init()
 	//m_player->CreatAnimation("../Data/Asset/animations.aml");
 	//m_player->SetEntity(m_player);
 	//m_player->ChangeState(EntityStateType::IDLE);
+	texture = ResourceManagers::GetInstance()->GetTexture("Pause1");
+	m_Pause = std::make_shared<Sprite2D>(model1, shader, texture);
+	m_Pause->Set2DPosition(screenWidth / 2, screenHeight / 2);
+	m_Pause->SetSize(600, 300);
 
 	texture = ResourceManagers::GetInstance()->GetTexture("tilesheet_numbered", GL_NEAREST);
 	testDungeon = std::make_shared<Dungeon>();
-
-	
+	m_Player = testDungeon->GetPlayer();
+	m_Running = true;
 	//text game title
-	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
-	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
-	m_score = std::make_shared< Text>(shader, font, "score: 10", TEXT_COLOR::RED, 1.0);
-	m_score->Set2DPosition(Vector2(5, 25));
-
 	
+
+	Application::GetInstance()->soloud.stopAll();
+	wav.load("../Data/Sound/dark_world.wav");// Load a wave file
+	// Play it
+	//Application::GetInstance()->soloud.play(wav);
+	//soloud.setLooping(soloud.play(wav), true);
+	Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
 }
 
 void GSPlay::Exit()
@@ -96,8 +102,8 @@ void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
 
 void GSPlay::Update(float deltaTime)
 {
-	//m_player->Update(deltaTime);
-	testDungeon->Update(deltaTime);
+	if(testDungeon->GetIsRunning() == true)
+		testDungeon->Update(deltaTime);
 }
 
 void GSPlay::Draw()
@@ -107,9 +113,11 @@ void GSPlay::Draw()
 //	st = GetTickCount();
 	testDungeon->Draw();
 //	std::cout << "Dung:" << GetTickCount() - st << std::endl;
-	m_score->Draw();
 	//m_player->Draw();
-
+	if (testDungeon->GetIsRunning() == false)
+	{
+		m_Pause->Draw();
+	}
 }
 
 void GSPlay::SetNewPostionForBullet()

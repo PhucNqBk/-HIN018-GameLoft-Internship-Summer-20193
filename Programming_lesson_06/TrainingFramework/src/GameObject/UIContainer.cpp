@@ -21,6 +21,11 @@ UIContainer::UIContainer(std::shared_ptr<Player> player ):m_Player(player)
 		tile->Set2DPosition(48 + (2 * i + 1)*40 / 2 , 48);
 		m_Hearts.push_back(tile);
 	}
+	
+	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
+	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
+	m_Score = std::make_shared< Text>(shader, font, "score: 0", TEXT_COLOR::RED, 1.0);
+	m_Score->Set2DPosition(Vector2(5, 25));
 }
 UIContainer::~UIContainer()
 {
@@ -37,6 +42,7 @@ void UIContainer::Draw()
 	{
 		it->Draw(m_RowCount, m_ColCount);
 	}
+	m_Score->Draw();
 }
 void UIContainer::Update(GLfloat deltatime)
 {
@@ -51,6 +57,7 @@ void UIContainer::Update(GLfloat deltatime)
 			m_Hearts[i]->SetTileID(1);
 		}
 	}
-		
+	std::string score = "Score:" + std::to_string(m_Player->GetScore());
+	m_Score->setText(score);
 	
 }

@@ -7,6 +7,8 @@ Player::Player()
 	SetCollider(0, 0, 48, 48);
 	m_Health = 12;
 	m_HitBoxEnable = false;
+	m_HasKey = false;
+	m_Score = 0;
 }
 Player::~Player()
 {
@@ -91,6 +93,7 @@ void Player::Update(GLfloat deltaTime) {
 	*/
 	//std::cout << m_HitBoxEnable << std::endl;
 	//std::cout << m_HitBox.OffsetX << " " << m_HitBox.OffsetY << " " << m_HitBox.w << m_HitBox.h << std::endl;
+	
 	m_LastSafePos = GetPosition();
 	if (m_IsInvulnerable)
 	{
@@ -103,7 +106,7 @@ void Player::Update(GLfloat deltaTime) {
 	}
 		m_CurrentAnimation->Update(deltaTime);
 		m_StateMachine->Update(deltaTime);
-	
+
 }
 void Player::SetLastX()
 {
@@ -136,4 +139,24 @@ void Player::Damage(int amount)
 		m_Health -= amount;
 	}
 	m_IsInvulnerable = true;
+}
+bool Player::GetHasKey()
+{
+	return m_HasKey;
+}
+void Player::SetHasKey(bool key)
+{
+	m_HasKey = key;
+}
+void Player::AddHeart(int amount)
+{
+	m_Health = (m_Health + amount > 12) ? 12 : m_Health + amount;
+}
+void Player::AddScore(int amount)
+{
+	m_Score += amount;
+}
+int	Player::GetScore()
+{
+	return m_Score;
 }

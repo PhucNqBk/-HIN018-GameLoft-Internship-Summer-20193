@@ -56,7 +56,7 @@ void PSIdle::Update(float deltaTime)
 		m_Entity->SetDirection(Direction::DIR_UP);
 		m_Entity->ChangeState(EntityStateType::WALK);
 	}
-	if (KeyPress & P_SWORD)
+	if ((KeyPress & P_SWORD))
 	{
 		m_Entity->ChangeState(EntityStateType::SWORD);
 	}

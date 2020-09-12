@@ -6,6 +6,9 @@
 #include "GameMaps/Dungeon.h"
 #include "ObjectDefs.h"
 #include "GameMaps/TileRoom.h"
+#include "Constant.h"
+#include"soloud.h"
+#include "soloud_wav.h"
 class GSMenu :
 	public GameStateBase
 {
@@ -29,10 +32,12 @@ private:
 	std::shared_ptr<Sprite2D> m_BackGround;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 	std::shared_ptr<Text>  m_Text_gameName;
-	std::shared_ptr<Animation> testAnim;
-	std::shared_ptr<TileLayer> testTile;
-	std::shared_ptr<Dungeon> testDungeon;
-	std::shared_ptr<TileRoom> tRoom;
-
+	//SoLoud::Soloud soloud;
+	SoLoud::Wav wav;
+	SoLoud::Wav wav0;
+	SoLoud::Wav wav1;
+	SoLoud::Wav wav2;
+	SoLoud::Wav wav3;
+	bool isPlay;
 };
 

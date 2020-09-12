@@ -19,8 +19,16 @@ void Application::Init()
 {
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 	GameStateMachine::GetInstance()->PushState(StateTypes::STATE_Intro);
+	soloud.init();
 }
-
+SoLoud::Soloud  Application::GetSoloud()
+{
+	return soloud;
+}
+int	Application::PlaySound(SoLoud::Wav wav)
+{
+	return soloud.play(wav);
+}
 void Application::Update(GLfloat deltaTime)
 {
 	GameStateMachine::GetInstance()->PerformStateChange();
@@ -50,7 +58,6 @@ void Application::HandleTouchEvent(GLint x, GLint y, bool bIsPresseded)
 	if (GameStateMachine::GetInstance()->HasState())
 		GameStateMachine::GetInstance()->CurrentState()->HandleTouchEvents(x, y, bIsPresseded);
 }
-
 void Application::Exit()
 {
 	exit(0);

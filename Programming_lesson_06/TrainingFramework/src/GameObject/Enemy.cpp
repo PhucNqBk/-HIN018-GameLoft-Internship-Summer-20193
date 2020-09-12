@@ -35,8 +35,19 @@ void Enemy::CreateEnemyFromData(std::shared_ptr<EnemyData> eData, int tile_w, in
 void Enemy::Update(GLfloat deltaTime)
 {
 	//std::cout << m_Health << std::endl;
+	m_LastSafePos = GetPosition();
+	Vector2 pos = m_Player->GetPosition();
+	Entity::ProcessAI(pos.x, pos.y, deltaTime);
 }
-void Enemy::ProcessAI()
+void Enemy::SetPlayer(std::shared_ptr<Player>player)
 {
-
+	m_Player = player;
+}
+void Enemy::SetLastX()
+{
+	SetPosition(m_LastSafePos.x, m_Position.y);
+}
+void Enemy::SetLastY()
+{
+	SetPosition(m_Position.x, m_LastSafePos.y);
 }

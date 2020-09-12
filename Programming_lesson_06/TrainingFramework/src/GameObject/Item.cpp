@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(): m_Timer(0.0f)
+Item::Item() : m_Timer(0.0f), m_IsObtained(false)
 {
 
 }
@@ -19,15 +19,15 @@ void Item::Init()
 }
 void Item::Update(GLfloat deltatime)
 {
-
+	m_Animation->Update(deltatime);
 }
 void Item::Draw()
 {
-
+	m_Animation->Draw();
 }
-void Item::TriggerEffect()
+int Item::TriggerEffect()
 {
-
+	return 0;
 }
 void Item::CreateItemFromData(std::shared_ptr<ItemData> iData)
 {
@@ -48,6 +48,7 @@ void Item::CreateItemFromData(std::shared_ptr<ItemData> iData)
 void Item::SetPosition(float x, float y)
 {
 	m_Position = Vector2(x, y);
+	m_Animation->Set2DPosition(x, y);
 }
 void Item::SetCollider(float x, float y, int w, int h)
 {
@@ -63,4 +64,16 @@ Vector2	Item::GetPosition()
 Collider2D Item::GetCollider()
 {
 	return m_Collider;
+}
+void Item::SetIsObtain(bool isOb)
+{
+	m_IsObtained = isOb;
+}
+bool Item::GetIsObtain()
+{
+	return m_IsObtained;
+}
+int	Item::GetItemType()
+{
+	return m_ItemType;
 }

@@ -3,8 +3,9 @@
 #include "GameMaps/TileLayer.h"
 #include "GameMaps/Dungeon.h"
 #include "ObjectDefs.h"
-
-
+#include"soloud.h"
+#include "soloud_wav.h"
+#include "Application.h"
 class Sprite2D;
 class Player;
 class Sprite3D;
@@ -36,9 +37,12 @@ public:
 private:
 
 	std::shared_ptr<Sprite2D> m_BackGround;
-	std::shared_ptr<Text>  m_score;
+	std::shared_ptr<Sprite2D> m_Pause;
+	std::shared_ptr<Player> m_Player;
+	bool m_Running;
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Dungeon> testDungeon;
 	std::shared_ptr<Sprite2D> dung;
+	SoLoud::Wav wav;
 };
 

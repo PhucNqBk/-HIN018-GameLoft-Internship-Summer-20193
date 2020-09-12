@@ -47,6 +47,7 @@ struct Room {
 	int m_DungRow, m_DungCol;
 	bool Door_Left = false, Door_Right = false, Door_Up = false, Door_Down = false;
 	bool isCleared = false;
+	int DoorDir = 0;
 	int m_RoomType = 1;
 };
 struct Collider2D {
@@ -84,7 +85,13 @@ enum Direction {
 #define DOOR_UP 3
 #define DOOR_LEFT 4
 
-#define COIN 0;
+#define COIN 0
 #define POTION 1
 #define PORTAL 2
 #define SWITCH 3
+
+#define MAX_ENEMY 10
+#define MIN_ENEMY 4
+
+#define MAX_ITEM 20
+#define MIN_ITEM 5

@@ -14,4 +14,9 @@ public:
 	virtual void Update(float deltaTime) override;
 	virtual void Draw() override;
 
+	virtual void ProcessAI(float x, float y, float deltatime) override;
+
+private:
+	float m_Duration;
+	float m_WaitTimer;
 };

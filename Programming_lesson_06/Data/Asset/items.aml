@@ -44,7 +44,8 @@
 	</sequence>
 	<sequence model = "Sprite2Dv1" shader = "AnimationShader" texture ="switches" RowCount = "1" FrameCount = "2" width = "48" height = "48">
 		<items type ="switch">
-			<frame id ="0" loop = "1" count = "2">0, 1</frame>
+			<frame id ="0" loop = "1" count = "1">0</frame>
+			<frame id ="1" loop = "1" count = "1">1</frame>
 		</items>
 	</sequence>
 </animations>

@@ -21,6 +21,7 @@ public:
 	void		ChangeState(EntityStateType type);
 	void		CleanUp();
 	void		SetEntity(std::shared_ptr<Entity> e);
+	void		ProcessAI(float x, float y, float deltatime);
 private:
 	std::map<EntityStateType,std::shared_ptr<EntityStateBase> > m_EStates;
 	std::shared_ptr<EntityStateBase> m_CurrentEState;

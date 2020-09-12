@@ -1,6 +1,8 @@
 #pragma once
 #include "EntityStates/ESAttack.h"
-
+#include"soloud.h"
+#include "soloud_wav.h"
+#include "Application.h"
 class PSSword : public ESAttack
 {
 public :
@@ -16,4 +18,6 @@ public :
 private:
 	float m_CurrentTime;
 	float m_Time;
+	SoLoud::Wav wav;
+	float isPlay;
 };

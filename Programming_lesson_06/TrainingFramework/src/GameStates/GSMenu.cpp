@@ -1,4 +1,8 @@
 #include "GSMenu.h"
+#include"soloud.h"
+#include "soloud_wav.h"
+#include "soloud_thread.h"
+#include "Application.h"
 extern int screenWidth; //need get on Graphic engine
 extern int screenHeight; //need get on Graphic engine
 
@@ -67,44 +71,26 @@ void GSMenu::Init()
 		});
 	m_listButton.push_back(button);
 	
-	texture = ResourceManagers::GetInstance()->GetTexture("character_walk", GL_NEAREST);
-	testAnim = std::make_shared<Animation>(model1, shaderX, texture,4, 4, 0.1f);
-	testAnim->SetIDs(PLAYER_LEFT, 4);
-	testAnim->Set2DPosition(screenWidth / 2, 600);
-	testAnim->SetSize(48, 96);
-
-	texture = ResourceManagers::GetInstance()->GetTexture("tilesheet_numbered", GL_NEAREST);
-//	testTile = std::make_shared<TileLayer>(model1, shaderX, texture, 0, 0);
-//	testTile->SetPosition(screenWidth / 2, screenHeight/2);
-	Room room;
-	room.m_RowCount = 8;
-	room.m_ColCount = 8;
-	room.m_DungRow = 1;
-	room.m_DungCol =2;
-	room.Door_Left = true;
-	room.Door_Right = true;
-	room.Door_Up = true;
-	room.Door_Down = true;
-	room.isCleared = true;
-//	testTile->InitRoom(model1, shaderX, texture, room);
-
-	//testDungeon = std::make_shared<Dungeon>();
-//	testDungeon->ParseSprite("../Data/Asset/maps.mml");
-	
-	texture = ResourceManagers::GetInstance()->GetTexture("GameMap/8_8", GL_NEAREST);
-	auto dung = std::make_shared<Sprite2D>(model1, shader, texture);
-	dung->Set2DPosition(screenWidth / 2, screenHeight / 2);
-	dung->SetSize(8 * 48, 8 * 48);
-	
-	tRoom = std::make_shared<TileRoom>();
-	tRoom->InitRoom(room, dung);
-	tRoom->SetPosition(1280 / 2, 720 / 2);
-//	testDungeon = std::make_shared<Dungeon>(model1, shaderX, texture, 1280/2, 720/2);
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
 	m_Text_gameName = std::make_shared< Text>(shader, font, "BRAVE ADVENTURER", TEXT_COLOR::RED, 1.0);
 	m_Text_gameName->Set2DPosition(Vector2(screenWidth / 2 - 120, 120));
+
+	
+	// Declare some variables
+	// Initialize SoLoud (automatic back-end selection)
+	
+	//isPlay = false;
+	wav.load("../Data/Sound/overworld1.wav");// Load a wave file
+	wav0.load("../Data/Sound/Dash.wav");
+	wav1.load("../Data/Sound/Sword1.wav");
+	wav2.load("../Data/Sound/Sword2.wav");
+	wav3.load("../Data/Sound/Sword3.wav");
+	     // Play it
+	//Application::GetInstance()->soloud.play(wav);
+	Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
+//	soloud.setLooping(soloud.play(wav), true);
 }
 
 void GSMenu::Exit()
@@ -119,7 +105,7 @@ void GSMenu::Pause()
 
 void GSMenu::Resume()
 {
-
+	Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
 }
 
 
@@ -130,7 +116,6 @@ void GSMenu::HandleEvents()
 
 void GSMenu::HandleKeyEvents(int key, bool bIsPressed)
 {
-	//testDungeon->HandleKeyEvents(key, bIsPressed);
 }
 
 void GSMenu::HandleTouchEvents(int x, int y, bool bIsPressed)
@@ -138,7 +123,10 @@ void GSMenu::HandleTouchEvents(int x, int y, bool bIsPressed)
 	for (auto it : m_listButton)
 	{
 		(it)->HandleTouchEvents(x, y, bIsPressed);
-		if ((it)->IsHandle()) break;
+		if ((it)->IsHandle()) {
+			
+			break;
+		}
 	}
 }
 
@@ -149,10 +137,6 @@ void GSMenu::Update(float deltaTime)
 	{
 		it->Update(deltaTime);
 	}
-	testAnim->Update(deltaTime);
-	testTile->Update(deltaTime);
-	//testDungeon->Update(deltaTime);
-	//tRoom->Update(deltaTime);
 }
 
 void GSMenu::Draw()
@@ -163,8 +147,5 @@ void GSMenu::Draw()
 		it->Draw();
 	}
 	m_Text_gameName->Draw();
-	//testAnim->Draw();
-	//testTile->Draw();
-	//testDungeon->Draw();
-	//tRoom->Draw();
+	
 }

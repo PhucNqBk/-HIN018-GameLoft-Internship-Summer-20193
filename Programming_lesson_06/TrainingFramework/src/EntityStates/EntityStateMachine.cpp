@@ -56,3 +56,7 @@ void EntityStateMachine::SetEntity(std::shared_ptr<Entity> e)
 		it->second->SetEntity(e);
 	}
 }
+void EntityStateMachine::ProcessAI(float x, float y, float deltatime)
+{
+	m_CurrentEState->ProcessAI(x, y, deltatime);
+}

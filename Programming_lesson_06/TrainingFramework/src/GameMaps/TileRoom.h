@@ -14,6 +14,10 @@
 #include "Potion.h"
 #include "Portal.h"
 #include "Switch.h"
+#include "Application.h"
+#include"soloud.h"
+#include "soloud_wav.h"
+
 class TileRoom
 {
 public:
@@ -39,9 +43,26 @@ public:
 	std::vector<std::shared_ptr<Door> >		GetDoor();
 
 	void		InitializeCollisionMatrix();
-	void		GeneratedObject();
 	void		AddDoor(bool isEnable, bool isOpen, DoorDirection dir);
-	void		GenerateEnemy(std::shared_ptr<EnemyData> eData);
+	void		GenerateEnemies(std::map< std::string, std::shared_ptr<EnemyData>> eDataList);
+	void		GenerateItems();
+	void		GenerateSwitch(int RoomType);
+	void		GeneratePortal(int RoomType);
+	void		CreateSwitch(std::shared_ptr<ItemData> iData);
+	void		CreatePortal(std::shared_ptr<ItemData> iData);
+	void		SetEnemyCount(int count);
+	int			GetEnemyCount();
+	void		SetItemCount(int count);
+	int			GetItemCount();
+
+	void		SetEnemyDataList(std::map< std::string, std::shared_ptr<EnemyData>> eDatas);
+	std::map< std::string, std::shared_ptr<EnemyData>>		GetEnemyDataList();
+
+	void		SetItemDataList(std::map<std::string, std::shared_ptr<ItemData> > iDatas);
+	std::map<std::string, std::shared_ptr<ItemData> >		GetItemDataList();
+	void		CleanUp();
+	std::shared_ptr<Portal> GetPortal();
+
 private:
 	std::shared_ptr<Sprite2D> m_TileMap;
 	std::vector<std::vector<int> > m_CollsionMap;
@@ -50,8 +71,18 @@ private:
 	int	m_DungRow, m_DungCol;
 	Vector2 m_Position;
 	std::shared_ptr<Player> m_Player;
-	std::shared_ptr<Enemy> slime;
 	std::vector<std::shared_ptr<Enemy> > m_Enemies;
-	std::vector<std::shared_ptr<Switch> > m_Switches;
+	std::shared_ptr<Switch> m_Switch;
 	std::vector<std::shared_ptr<Item>> m_Items;
+	std::shared_ptr<Portal> m_Portal;
+	int m_EnemyCount;
+	std::map< std::string, std::shared_ptr<EnemyData>> m_EnemyDataList;
+	int m_ItemCount;
+	std::map<std::string, std::shared_ptr<ItemData> > m_ItemDataList;
+	
+	SoLoud::Wav coin_wav;
+	SoLoud::Wav switch_wav;
+	SoLoud::Wav heart_wav;
+	SoLoud::Wav eHit_wav;
+	SoLoud::Wav pHit_wav;
 };

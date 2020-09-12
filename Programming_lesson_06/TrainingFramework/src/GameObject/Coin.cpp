@@ -4,7 +4,7 @@ Coin::Coin() :Item()
 {
 	m_ItemType = COIN;
 }
-Coin::Coin(std::shared_ptr<ItemData> iData)
+Coin::Coin(std::shared_ptr<ItemData> iData) : Item()
 {
 	m_ItemType = COIN;
 	Coin::CreateItemFromData(iData);
@@ -22,9 +22,9 @@ void	Coin::Update(GLfloat deltatime)
 
 }
 
-void	Coin::TriggerEffect()
+int	Coin::TriggerEffect()
 {
-
+	return m_Score;
 }
 void	Coin::CreateItemFromData(std::shared_ptr<ItemData> iData)
 {

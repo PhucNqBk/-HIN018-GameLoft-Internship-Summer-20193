@@ -13,6 +13,7 @@
 #include "ItemData.h"
 #include "Item.h"
 #include "UIContainer.h"
+#include "GameStates/GameStateMachine.h"
 class Dungeon
 {
 public:
@@ -25,7 +26,6 @@ public:
 	void		Draw();
 	void		Update(GLfloat deltatime);
 	void		HandleKeyEvents(int key, bool bIsPressed);
-	void		SetRoomsPosition(float x, float y);
 
 	void		CreateRooms();
 	Vector2		NewPosition();
@@ -38,6 +38,14 @@ public:
 	void		ParseEnemyData(std::string filename);
 	void		ParseItemData(std::string filename);
 	void		ChangeRoom(DoorDirection dir);
+
+	void		SetDungeonMaxCount(int count);
+	int			GetDungeonMaxCount();
+	int			GetDungeonCount();
+	std::shared_ptr<Player> GetPlayer();
+	void		SetIsRunning(bool isRun);
+	bool		GetIsRunning();
+
 protected:
 	std::shared_ptr<Models>		m_pModel;
 	std::shared_ptr<Shaders>	m_pShader;
@@ -58,4 +66,8 @@ private:
 	std::map< std::string, std::shared_ptr<EnemyData>> m_EnemyDataList;
 	std::map<std::string, std::shared_ptr<ItemData> > m_ItemDataList;
 	std::shared_ptr<UIContainer> m_UI;
+	int m_DungeonCount;
+	int m_DungeonMaxCount;
+	std::shared_ptr<Portal> m_Portal;
+	bool m_IsRunning;
 };

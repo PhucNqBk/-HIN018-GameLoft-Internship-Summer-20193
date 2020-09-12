@@ -21,6 +21,7 @@ public:
 
 	void SetEntity(std::shared_ptr<Entity> e);
 	std::shared_ptr<Entity> GetEnitity();
+	virtual void ProcessAI(float x, float y, float deltatime);
 protected:
 	std::shared_ptr<Entity>m_Entity;
 };

@@ -1,15 +1,4 @@
-﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  Dungeon.cpp
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(48): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(197): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(258): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(535): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(570): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(571): warning C4244: '=': conversion from 'GLfloat' to 'int', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(596): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(661): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(671): warning C4018: '<': signed/unsigned mismatch
-c:\users\fourier_sp\downloads\compressed\programming_lesson_06\trainingframework\src\gamemaps\dungeon.cpp(678): warning C4018: '<': signed/unsigned mismatch
-Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+﻿Application.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   TrainingFramework.vcxproj -> C:\Users\Fourier_Sp\Downloads\Compressed\Programming_lesson_06\\BIN-Nvidia\TrainingFramework.exe

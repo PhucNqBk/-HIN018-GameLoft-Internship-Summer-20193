@@ -20,6 +20,8 @@ void Application::Init()
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 	GameStateMachine::GetInstance()->PushState(StateTypes::STATE_Intro);
 	soloud.init();
+	Music_Volume = 5;
+	SFX_Volume = 5;
 }
 SoLoud::Soloud  Application::GetSoloud()
 {

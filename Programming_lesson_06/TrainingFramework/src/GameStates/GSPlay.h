@@ -38,11 +38,14 @@ private:
 
 	std::shared_ptr<Sprite2D> m_BackGround;
 	std::shared_ptr<Sprite2D> m_Pause;
+	std::shared_ptr<Sprite2D> m_Guide;
 	std::shared_ptr<Player> m_Player;
 	bool m_Running;
+	bool m_GuideEnable;
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Dungeon> testDungeon;
 	std::shared_ptr<Sprite2D> dung;
 	SoLoud::Wav wav;
+	int bg_handle;
 };
 

@@ -16,13 +16,13 @@ void ESWalk::Init()
 	m_Range = m_Entity->GetRange();
 	Direction dir = m_Entity->GetDirection();
 	if (dir == Direction::DIR_DOWN)
-		m_Entity->ChangeAnimation("idle-0");
+		m_Entity->ChangeAnimation("walk-0");
 	else if (dir == Direction::DIR_RIGHT)
-		m_Entity->ChangeAnimation("idle-1");
+		m_Entity->ChangeAnimation("walk-1");
 	else if (dir == Direction::DIR_UP)
-		m_Entity->ChangeAnimation("idle-2");
+		m_Entity->ChangeAnimation("walk-2");
 	else if (dir == Direction::DIR_LEFT)
-		m_Entity->ChangeAnimation("idle-3");
+		m_Entity->ChangeAnimation("walk-3");
 }
 void ESWalk::Exit()
 {

@@ -19,5 +19,6 @@ public:
 
 public:
 	SoLoud::Soloud soloud;
-	
+	int Music_Volume;
+	int	SFX_Volume;
 };

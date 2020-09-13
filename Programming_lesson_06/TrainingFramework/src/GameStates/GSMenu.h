@@ -27,17 +27,14 @@ public:
 	void HandleTouchEvents(int x, int y, bool bIsPressed);
 	void Update(float deltaTime);
 	void Draw();
-
 private:
 	std::shared_ptr<Sprite2D> m_BackGround;
 	std::list<std::shared_ptr<GameButton>>	m_listButton;
 	std::shared_ptr<Text>  m_Text_gameName;
+	std::shared_ptr<Sprite2D> m_GameTitle;
 	//SoLoud::Soloud soloud;
 	SoLoud::Wav wav;
-	SoLoud::Wav wav0;
-	SoLoud::Wav wav1;
-	SoLoud::Wav wav2;
-	SoLoud::Wav wav3;
 	bool isPlay;
+	int bg_handle;
 };
 

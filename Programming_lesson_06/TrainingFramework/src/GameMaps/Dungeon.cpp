@@ -4,11 +4,38 @@
 #include "ResourceManagers.h"
 Dungeon::Dungeon()
 {
-	m_IsRunning = true;
+	m_WarpTimer = 0.0f;
+	m_Result = false;
+	m_IsRunning = false;
 	m_DungeonCount = 0;
+	coffin.load("../Data/Sound/CoffinDance.wav");
+	warp_wav.load("../Data/Sound/Warp.wav");
 	ParseSprite("../Data/Asset/maps.mml");
 	ParseEnemyData("../Data/Asset/enemies.aml");
 	ParseItemData("../Data/Asset/items.aml");
+
+	//Load Images
+	auto model1 = ResourceManagers::GetInstance()->GetModel("Sprite2Dv1");
+	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("Pause1");
+	m_Pause = std::make_shared<Sprite2D>(model1, shader, texture);
+	m_Pause->Set2DPosition(1280 / 2, 720 / 2);
+	m_Pause->SetSize(600, 300);
+
+	texture = ResourceManagers::GetInstance()->GetTexture("Result");
+	m_ResultImage = std::make_shared<Sprite2D>(model1, shader, texture);
+	m_ResultImage->Set2DPosition(1280 / 2, 720 / 2);
+	m_ResultImage->SetSize(420, 512);
+
+	texture = ResourceManagers::GetInstance()->GetTexture("Guide");
+	m_Guide = std::make_shared<Sprite2D>(model1, shader, texture);
+	m_Guide->Set2DPosition(1280 / 2, 720 / 2);
+	m_Guide->SetSize(1280, 720);
+
+	m_IsRunning = false;
+	m_GuideEnable = true;
+
+	//Room Initialize
 	for (int i = 0; i < DUNGEON_HEIGHT; i++)
 	{
 		for (int j = 0; j < DUNGEON_WIDTH; j++)
@@ -350,11 +377,30 @@ void Dungeon::Init()
 }
 void Dungeon::Draw()
 {
-	m_CurrentTileRoom->Draw();
-	m_UI->Draw();
+	if (m_Result == false) {
+		m_CurrentTileRoom->Draw();
+		m_UI->Draw();
+
+		if (m_IsRunning == false)
+		{
+			m_Pause->Draw();
+		}
+		if (m_GuideEnable == true)
+		{
+			m_Guide->Draw();
+		}
+	}
+	else {
+		m_ResultImage->Draw();
+		m_UI->DrawResult();
+	}
+	
 }
 void Dungeon::Update(GLfloat deltatime)
 {
+	if (m_Result == true) return;
+	if (m_IsRunning == false) return;
+	m_GuideEnable = false;
 	//m_CurrentRoom->InitRoom(model, shader, texture, m_DungeonRooms[]);
 	m_CurrentTileRoom->Update(deltatime);
 	std::vector<std::shared_ptr<Door> > Doorway = m_CurrentTileRoom->GetDoor();
@@ -374,12 +420,38 @@ void Dungeon::Update(GLfloat deltatime)
 	Vector2 pos = m_Portal->GetPosition();
 	if (m_Player->Collision(pos.x, pos.y, m_Portal->GetCollider()) && m_Portal->GetIsEnable() == true)
 	{
-		Init();
+		m_Player->SetCanMove(false);
+		m_Player->SetPosition(1280 / 2, 720 / 2);
+		if (m_WarpTimer == 0) {
+			int c_handle = Application::GetInstance()->soloud.play(warp_wav);
+			Application::GetInstance()->soloud.setPause(c_handle, 1);
+			Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+			Application::GetInstance()->soloud.setPause(c_handle, 0);
+		}
+		m_WarpTimer += deltatime;
+		if (m_WarpTimer >= 2.0f)
+		{
+			Init();
+			m_Player->SetCanMove(true);
+			m_WarpTimer = 0.0f;
+		}
+		
 	}
 	if (m_Player->GetIsDead() == true)
 	{
+		if (m_Result == false) {
+			Application::GetInstance()->soloud.stopAll();
+			m_Bghandle = Application::GetInstance()->soloud.play(coffin);
+			Application::GetInstance()->soloud.setLooping(m_Bghandle, true);
+			Application::GetInstance()->soloud.setVolume(m_Bghandle, ((float)(Application::GetInstance()->Music_Volume)) / 10.0f);
+
+		}
+		m_Result = true;
 		//GameStateMachine::GetInstance()->PopState();
 	}
+	std::string dungCount = "Dungeon: " + std::to_string(m_DungeonCount);
+	m_UI->GetDungeonText()->setText(dungCount);
+	m_UI->GetResulDungeonText()->setText(dungCount);
 	m_UI->Update(deltatime);
 	
 }
@@ -441,11 +513,12 @@ void Dungeon::HandleKeyEvents(int key, bool bIsPressed)
 			m_IsRunning = (m_IsRunning == true) ? false : true;
 			break;
 		case VK_ESCAPE:
-			if (m_IsRunning == false)
-			{
+			if (m_Result == false && m_IsRunning == false)		
+					GameStateMachine::GetInstance()->PopState();
+			else if(m_Result == true)
 				GameStateMachine::GetInstance()->PopState();
-			}
 				break;
+			
 		default:
 			break;
 		}

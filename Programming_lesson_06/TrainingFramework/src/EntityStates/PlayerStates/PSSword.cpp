@@ -39,7 +39,12 @@ void PSSword::Init()
 		m_Entity->ChangeAnimation("player-sword-3");
 		m_Entity->SetHitBox(-24, 0, 40, 48);
 	}
-	Application::GetInstance()->soloud.play(wav);
+	int c_handle = Application::GetInstance()->soloud.play(wav);
+	Application::GetInstance()->soloud.setPause(c_handle, 1);
+	Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+	Application::GetInstance()->soloud.setPause(c_handle, 0);
+
+	//Application::GetInstance()->soloud.play(wav);
 	//Application::GetInstance()->soloud.play(wav1);
 }
 void PSSword::Exit()

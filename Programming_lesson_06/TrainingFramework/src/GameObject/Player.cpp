@@ -9,6 +9,7 @@ Player::Player()
 	m_HitBoxEnable = false;
 	m_HasKey = false;
 	m_Score = 0;
+	m_CanMove = true;
 }
 Player::~Player()
 {
@@ -105,7 +106,8 @@ void Player::Update(GLfloat deltaTime) {
 		}
 	}
 		m_CurrentAnimation->Update(deltaTime);
-		m_StateMachine->Update(deltaTime);
+		if(m_CanMove == true)
+			m_StateMachine->Update(deltaTime);
 
 }
 void Player::SetLastX()
@@ -159,4 +161,8 @@ void Player::AddScore(int amount)
 int	Player::GetScore()
 {
 	return m_Score;
+}
+void Player::SetCanMove(bool move)
+{
+	m_CanMove = move;
 }

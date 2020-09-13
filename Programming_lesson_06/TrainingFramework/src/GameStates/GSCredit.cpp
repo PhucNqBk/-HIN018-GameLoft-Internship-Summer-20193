@@ -15,7 +15,7 @@ void GSCredit::Init()
 {
 	auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D");
 	auto model1 = ResourceManagers::GetInstance()->GetModel("Sprite2Dv1");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_main_menu");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("background");
 
 	//BackGround
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
@@ -24,18 +24,29 @@ void GSCredit::Init()
 	m_Background->SetSize(screenWidth, screenHeight);
 
 	//back button
-	texture = ResourceManagers::GetInstance()->GetTexture("button_game");
+	texture = ResourceManagers::GetInstance()->GetTexture("Back");
 	m_Button = std::make_shared<GameButton>(model1, shader, texture);
-	m_Button->Set2DPosition(screenWidth -100, 30);
-	m_Button->SetSize(200, 50);
+	m_Button->Set2DPosition(100, screenHeight - 100);
+	m_Button->SetSize(300, 50);
 	m_Button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->PopState();
 	});
 
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
-	m_Text = std::make_shared< Text>(shader, font, " This is an intern project", TEXT_COLOR::RED, 1.0);
-	m_Text->Set2DPosition(Vector2(5, 25));
+
+	m_Text = std::make_shared< Text>(shader, font, " This is an intern project made for HIN018 GameLoft Intership in Semester 20193", TEXT_COLOR::WHILE, 1.0);
+	m_Text->Set2DPosition(Vector2(5,120 ));
+	
+	m_Name = std::make_shared< Text>(shader, font, " Made by : Nguyen Quang Phuc, Hanoi University Of Science And Technology", TEXT_COLOR::WHILE, 1.0);
+	m_Name->Set2DPosition(Vector2(5, 240));
+
+	m_Mentor = std::make_shared< Text>(shader, font, " Mentor: Hoang Manh Hung, GameLoft HAN Studio ", TEXT_COLOR::WHILE, 1.0);
+	m_Mentor->Set2DPosition(Vector2(5, 360));
+
+	m_Thanks = std::make_shared< Text>(shader, font, " THANKS FOR PLAYING! ", TEXT_COLOR::WHILE, 1.0);
+	m_Thanks->Set2DPosition(Vector2(5, 480));
+	//Application::GetInstance()->soloud.stopAll();
 }
 void GSCredit::Exit() 
 {
@@ -74,4 +85,7 @@ void GSCredit::Draw()
 	m_Background->Draw();
 	m_Button->Draw();
 	m_Text->Draw();
+	m_Name->Draw();
+	m_Mentor->Draw();
+	m_Thanks->Draw();
 }

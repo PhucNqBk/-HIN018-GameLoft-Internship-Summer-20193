@@ -38,34 +38,42 @@ void GSPlay::Init()
 	m_BackGround->Set2DPosition(screenWidth / 2, screenHeight / 2);
 	m_BackGround->SetSize(screenWidth, screenHeight);
 
-	//load player
-//	texture = ResourceManagers::GetInstance()->GetTexture("Player");
-//	m_player = std::make_shared<Player>(model1, shader, texture);
-//	m_player->Set2DPosition(screenWidth / 2, screenHeight / 2);
-//	m_player->SetSize(16, 16);
-	//m_player = std::make_shared<Player>();
-	//m_player->SetPosition(screenWidth / 2, screenHeight / 2);
-	//m_player->CreatAnimation("../Data/Asset/animations.aml");
-	//m_player->SetEntity(m_player);
-	//m_player->ChangeState(EntityStateType::IDLE);
-	texture = ResourceManagers::GetInstance()->GetTexture("Pause1");
-	m_Pause = std::make_shared<Sprite2D>(model1, shader, texture);
-	m_Pause->Set2DPosition(screenWidth / 2, screenHeight / 2);
-	m_Pause->SetSize(600, 300);
+	
 
 	texture = ResourceManagers::GetInstance()->GetTexture("tilesheet_numbered", GL_NEAREST);
 	testDungeon = std::make_shared<Dungeon>();
 	m_Player = testDungeon->GetPlayer();
-	m_Running = true;
+	m_Running = false;
+	m_GuideEnable = true;
 	//text game title
-	
-
 	Application::GetInstance()->soloud.stopAll();
-	wav.load("../Data/Sound/dark_world.wav");// Load a wave file
+	int song = rand() % 4;
+	if (song == 0)
+	{
+		wav.load("../Data/Sound/BGM0.wav");
+	}
+	else if (song == 1)
+	{
+		wav.load("../Data/Sound/BGM1.wav");
+	}
+	else if (song == 2)
+	{
+		wav.load("../Data/Sound/BGM2.wav");
+	}
+	else
+	{
+		wav.load("../Data/Sound/BGM3.wav");
+	}
+	
+	// Load a wave file
 	// Play it
 	//Application::GetInstance()->soloud.play(wav);
 	//soloud.setLooping(soloud.play(wav), true);
-	Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
+	bg_handle = Application::GetInstance()->soloud.play(wav);
+	Application::GetInstance()->soloud.setVolume(bg_handle, ((float)(Application::GetInstance()->Music_Volume)) / 10.0f);
+	Application::GetInstance()->soloud.setLooping(bg_handle, true);
+
+	//Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
 }
 
 void GSPlay::Exit()
@@ -102,8 +110,15 @@ void GSPlay::HandleTouchEvents(int x, int y, bool bIsPressed)
 
 void GSPlay::Update(float deltaTime)
 {
-	if(testDungeon->GetIsRunning() == true)
+	
+	/*
+	if (testDungeon->GetIsRunning() == true) {
 		testDungeon->Update(deltaTime);
+		m_GuideEnable = false;
+	}
+	*/
+	testDungeon->Update(deltaTime);
+		
 }
 
 void GSPlay::Draw()
@@ -112,12 +127,17 @@ void GSPlay::Draw()
 	//m_BackGround->Draw();
 //	st = GetTickCount();
 	testDungeon->Draw();
-//	std::cout << "Dung:" << GetTickCount() - st << std::endl;
-	//m_player->Draw();
+	/*
 	if (testDungeon->GetIsRunning() == false)
 	{
 		m_Pause->Draw();
 	}
+	if (m_GuideEnable == true) 
+	{
+		m_Guide->Draw();
+	}
+	*/
+	
 }
 
 void GSPlay::SetNewPostionForBullet()

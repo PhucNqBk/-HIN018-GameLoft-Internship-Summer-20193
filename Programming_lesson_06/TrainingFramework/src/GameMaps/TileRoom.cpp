@@ -140,7 +140,12 @@ void TileRoom::Update(GLfloat deltatime)
 			if ((m_Player->GetInvunerable() == false))
 			{
 				m_Player->Damage(1);
-				Application::GetInstance()->soloud.play(pHit_wav);
+
+				int c_handle = Application::GetInstance()->soloud.play(pHit_wav);
+				Application::GetInstance()->soloud.setPause(c_handle, 1);
+				Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+				Application::GetInstance()->soloud.setPause(c_handle, 0);
+
 			}
 			it->SetLastX();
 			it->SetLastY();
@@ -149,7 +154,13 @@ void TileRoom::Update(GLfloat deltatime)
 		if (m_Player->HitBoxCollision(pos.x, pos.y, it->GetCollider()) && (it->GetIsDead() == false))
 		{
 			it->Damage(1);
-			Application::GetInstance()->soloud.play(eHit_wav);
+
+			//Application::GetInstance()->soloud.play(eHit_wav);
+			int c_handle = Application::GetInstance()->soloud.play(eHit_wav);
+			Application::GetInstance()->soloud.setPause(c_handle, 1);
+			Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+			Application::GetInstance()->soloud.setPause(c_handle, 0);
+
 			if (it->GetIsDead() == true || it->GetHealth() <= 0)
 				m_Player->AddScore(100 + (int)(it->GetWalkSpeed()));
 		}
@@ -164,13 +175,19 @@ void TileRoom::Update(GLfloat deltatime)
 			{
 				m_Player->AddHeart(it->TriggerEffect());
 				it->SetIsObtain(true);
-				Application::GetInstance()->soloud.play(heart_wav);
+				int c_handle = Application::GetInstance()->soloud.play(heart_wav);
+				Application::GetInstance()->soloud.setPause(c_handle, 1);
+				Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+				Application::GetInstance()->soloud.setPause(c_handle, 0);
 			}
 			else
 			{
 				m_Player->AddScore(it->TriggerEffect());
 				it->SetIsObtain(true);
-				Application::GetInstance()->soloud.play(coin_wav);
+				int c_handle = Application::GetInstance()->soloud.play(coin_wav);
+				Application::GetInstance()->soloud.setPause(c_handle, 1);
+				Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+				Application::GetInstance()->soloud.setPause(c_handle, 0);
 			}
 
 		}
@@ -182,7 +199,11 @@ void TileRoom::Update(GLfloat deltatime)
 		{
 			m_Player->SetHasKey(true);
 			m_Switch->SetIsActivated(true);
-			Application::GetInstance()->soloud.play(switch_wav);
+
+			int c_handle = Application::GetInstance()->soloud.play(switch_wav);
+			Application::GetInstance()->soloud.setPause(c_handle, 1);
+			Application::GetInstance()->soloud.setVolume(c_handle, ((float)(Application::GetInstance()->SFX_Volume)) / 10.0f);
+			Application::GetInstance()->soloud.setPause(c_handle, 0);
 		}
 	}
 	

@@ -18,6 +18,7 @@ public:
 	bool		GetHasKey();
 	void		SetHasKey(bool key);
 	void		AddScore(int amount);
+	void		SetCanMove(bool move);
 	int			GetScore();
 	virtual void Damage(int amount) override;
 	virtual void AddHeart(int amount) override;
@@ -25,5 +26,6 @@ private:
 	Vector2		m_LastSafePos;
 	bool		m_HasKey;
 	int			m_Score;
+	bool		m_CanMove;
 };
 

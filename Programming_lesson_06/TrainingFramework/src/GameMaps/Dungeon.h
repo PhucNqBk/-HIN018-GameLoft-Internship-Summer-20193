@@ -14,6 +14,10 @@
 #include "Item.h"
 #include "UIContainer.h"
 #include "GameStates/GameStateMachine.h"
+
+#include"soloud.h"
+#include "soloud_wav.h"
+
 class Dungeon
 {
 public:
@@ -69,5 +73,15 @@ private:
 	int m_DungeonCount;
 	int m_DungeonMaxCount;
 	std::shared_ptr<Portal> m_Portal;
+
+	SoLoud::Wav coffin;
+	SoLoud::Wav warp_wav;
+	std::shared_ptr<Sprite2D> m_Pause;
+	std::shared_ptr<Sprite2D> m_Guide;
+	std::shared_ptr<Sprite2D> m_ResultImage;
 	bool m_IsRunning;
+	bool m_Result;
+	bool m_GuideEnable;
+	int m_Bghandle;
+	float m_WarpTimer;
 };

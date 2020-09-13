@@ -26,35 +26,37 @@ void GSMenu::Init()
 	auto shaderX = ResourceManagers::GetInstance()->GetShader("AnimationShader");
 	//BackGround
 	auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
-	m_BackGround = std::make_shared<Sprite2D>(model, shader, texture);
+	m_BackGround = std::make_shared<Sprite2D>(model1, shader, texture);
 	m_BackGround->Set2DPosition(screenWidth / 2, screenHeight / 2);
 	m_BackGround->SetSize(screenWidth, screenHeight);
 
 	//play button
-	texture = ResourceManagers::GetInstance()->GetTexture("button_game");
+	texture = ResourceManagers::GetInstance()->GetTexture("New_Game");
 	std::shared_ptr<GameButton> button = std::make_shared<GameButton>(model1, shader, texture);
-	button->Set2DPosition(screenWidth / 2, 200);
-	button->SetSize(200, 50);
+	button->Set2DPosition(screenWidth / 2, 400);
+	button->SetSize(450, 50);
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Play);
 		});
 	m_listButton.push_back(button);
 
 	//option button
-	texture = ResourceManagers::GetInstance()->GetTexture("button_option");
+	//Button back
+	texture = ResourceManagers::GetInstance()->GetTexture("Option");
 	button = std::make_shared<GameButton>(model1, shader, texture);
-	button->Set2DPosition(screenWidth / 2, 300);
-	button->SetSize(200, 50);
+	button->Set2DPosition(screenWidth / 2, 470);
+	button->SetSize(400, 50);
 	button->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Play);
+		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Option);
 	});
 	m_listButton.push_back(button);
 
+	
 	//credit button
-	texture = ResourceManagers::GetInstance()->GetTexture("button_credit");
+	texture = ResourceManagers::GetInstance()->GetTexture("Credit");
 	button = std::make_shared<GameButton>(model1, shader, texture);
-	button->Set2DPosition(screenWidth / 2, 400);
-	button->SetSize(200, 50);
+	button->Set2DPosition(screenWidth / 2, 540);
+	button->SetSize(450, 50);
 	button->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateTypes::STATE_Credit);
 	});
@@ -62,19 +64,24 @@ void GSMenu::Init()
 
 
 	//exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("button_exit");
+	texture = ResourceManagers::GetInstance()->GetTexture("Exit_Game");
 	button = std::make_shared<GameButton>(model1, shader, texture);
-	button->Set2DPosition(screenWidth / 2, 500);
-	button->SetSize(200, 50);
+	button->Set2DPosition(screenWidth / 2, 610);
+	button->SetSize(500, 50);
 	button->SetOnClick([]() {
 		exit(0);
 		});
 	m_listButton.push_back(button);
 	
+	texture = ResourceManagers::GetInstance()->GetTexture("GameTitle", GL_NEAREST);
+	m_GameTitle = std::make_shared<Sprite2D>(model1, shader, texture);
+	m_GameTitle->Set2DPosition(screenWidth / 2, 250);
+	m_GameTitle->SetSize(640, 360);
+
 	//text game title
 	shader = ResourceManagers::GetInstance()->GetShader("TextShader");
 	std::shared_ptr<Font> font = ResourceManagers::GetInstance()->GetFont("arialbd");
-	m_Text_gameName = std::make_shared< Text>(shader, font, "BRAVE ADVENTURER", TEXT_COLOR::RED, 1.0);
+	m_Text_gameName = std::make_shared< Text>(shader, font, "", TEXT_COLOR::RED, 1.0);
 	m_Text_gameName->Set2DPosition(Vector2(screenWidth / 2 - 120, 120));
 
 	
@@ -82,19 +89,19 @@ void GSMenu::Init()
 	// Initialize SoLoud (automatic back-end selection)
 	
 	//isPlay = false;
-	wav.load("../Data/Sound/overworld1.wav");// Load a wave file
-	wav0.load("../Data/Sound/Dash.wav");
-	wav1.load("../Data/Sound/Sword1.wav");
-	wav2.load("../Data/Sound/Sword2.wav");
-	wav3.load("../Data/Sound/Sword3.wav");
+	
+	wav.load("../Data/Sound/Menu.wav");// Load a wave file
 	     // Play it
 	//Application::GetInstance()->soloud.play(wav);
-	Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
+	bg_handle = Application::GetInstance()->soloud.play(wav);
+	Application::GetInstance()->soloud.setVolume(bg_handle,((float)(Application::GetInstance()->Music_Volume))/10.0f);
+	Application::GetInstance()->soloud.setLooping(bg_handle, true);
 //	soloud.setLooping(soloud.play(wav), true);
 }
 
 void GSMenu::Exit()
 {
+
 }
 
 
@@ -105,7 +112,11 @@ void GSMenu::Pause()
 
 void GSMenu::Resume()
 {
-	Application::GetInstance()->soloud.setLooping(Application::GetInstance()->soloud.play(wav), true);
+	Application::GetInstance()->soloud.stopAll();
+	bg_handle = Application::GetInstance()->soloud.play(wav);
+	Application::GetInstance()->soloud.setVolume(bg_handle,((float)(Application::GetInstance()->Music_Volume)) / 10.0f);
+	Application::GetInstance()->soloud.setVolume(bg_handle, ((float)(Application::GetInstance()->Music_Volume)) / 10.0f);
+	Application::GetInstance()->soloud.setLooping(bg_handle, true);
 }
 
 
@@ -147,5 +158,5 @@ void GSMenu::Draw()
 		it->Draw();
 	}
 	m_Text_gameName->Draw();
-	
+	m_GameTitle->Draw();
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<maps>
+	<sequence model = "Sprite2Dv1" shader = "TextureShader">
+		<map width ="8" height ="8" texture="GameMap/8_8"/>
+		<map width ="8" height ="10" texture="GameMap/8_10"/>
+		<map width ="8" height ="12" texture="GameMap/8_12"/>
+
+		<map width ="10" height ="8" texture="GameMap/10_8"/>
+		<map width ="10" height ="10" texture="GameMap/10_10"/>
+		<map width ="10" height ="12" texture="GameMap/10_12"/>
+
+		<map width ="12" height ="8" texture="GameMap/12_8"/>
+		<map width ="12" height ="10" texture="GameMap/12_10"/>
+		<map width ="12" height ="12" texture="GameMap/12_12"/>
+
+		<map width ="14" height ="8" texture="GameMap/14_8"/>
+		<map width ="14" height ="10" texture="GameMap/14_10"/>
+		<map width ="14" height ="12" texture="GameMap/14_12"/>
+
+		<map width ="16" height ="8" texture="GameMap/16_8"/>
+		<map width ="16" height ="10" texture="GameMap/16_10"/>
+		<map width ="16" height ="12" texture="GameMap/16_12"/>
+
+		<map width ="18" height ="8" texture="GameMap/18_8"/>
+		<map width ="18" height ="10" texture="GameMap/18_10"/>
+		<map width ="18" height ="12" texture="GameMap/18_12"/>
+
+		<map width ="20" height ="8" texture="GameMap/20_8"/>
+		<map width ="20" height ="10" texture="GameMap/20_10"/>
+		<map width ="20" height ="12" texture="GameMap/20_12"/>
+	</sequence>	
+</maps>
